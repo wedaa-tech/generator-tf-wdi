@@ -1,0 +1,8 @@
+{
+  "generator-yeoman-tf": {
+    "promptValues": {
+      "Cloud Provider Name": "aws",
+      "provider_name": "aws"
+    }
+  }
+}
