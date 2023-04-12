@@ -2,7 +2,7 @@
   "name": "generator-tf-wdi",
   "version": "0.0.1",
   "description": "terraform generator",
-  "homepage": "",
+  "homepage": "coMakeIT-TIC/generator-tf-wdi/",
   "author": {
     "name": "comakeIT-tic",
     "email": "tic.dev@comakeit.com",
@@ -81,6 +81,6 @@
     "pretest": "eslint .",
     "test": "jest"
   },
-  "repository": "ImAvinashSharma/generator-tf-wdi",
+  "repository": "coMakeIT-TIC/generator-tf-wdi/",
   "license": "ISC"
 }
