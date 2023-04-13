@@ -15,12 +15,18 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: npm install
 
       - name: Bump package version
         run: npm version patch -m "Bump version to %s [skip ci]"
+
+      - name: Publish to NPM
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
 
       - name: Push changes to GitHub
         uses: ad-m/github-push-action@v0.6.0
@@ -32,7 +38,7 @@ jobs:
         id: create_release
         uses: actions/create-release@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.SECRECT_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
