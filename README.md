@@ -14,7 +14,7 @@ npm install -g generator-tf-wdi
 Then generate your new project:
 
 ```bash
-yo yeoman-tf
+yo tf-wdi
 ```
 
 ## Getting To Know Yeoman
