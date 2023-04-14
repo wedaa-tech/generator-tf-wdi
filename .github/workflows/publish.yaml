@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - git_action_Workflow
 
 jobs:
   release:
