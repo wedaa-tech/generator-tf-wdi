@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - git_action_Workflow
+      - workflow_test
 
 jobs:
   release:
@@ -37,7 +37,7 @@ jobs:
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: git_action_Workflow
+          branch: workflow_test
           force: true
 
       - name: Create GitHub release
