@@ -1,5 +1,5 @@
 module "eks-cluster-autoscaler" {
-  source  = "lablabs/eks-cluster-autoscaler/aws"
+  source  = "github.com/coMakeIT-TIC/terraform_modules/aws/eks_autoscaler"
   version = "2.1.0"
 
   # insert the 3 required variables here
