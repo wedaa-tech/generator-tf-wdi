@@ -1,4 +1,5 @@
 const fileListAws = [
+  "auto-destroy.sh",
   "auto-deploy.sh",
   "install.sh",
   "destroy.sh",

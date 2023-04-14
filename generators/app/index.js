@@ -128,8 +128,10 @@ module.exports = class extends Generator {
       this.log("Adding Helm to cloud provider");
       this._fileHelper(fileListHelmNginx, options, copyOpts);
 
-      this.log("creating namespace");
-      this._fileHelper(fileListNamespace, options, copyOpts);
+      // can be used in future versions
+      
+      // this.log("creating namespace");
+      // this._fileHelper(fileListNamespace, options, copyOpts);
 
       // Generate ECR repositories only if the generateInfra is true
       if (options.generateInfra === "true") {

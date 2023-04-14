@@ -1,6 +1,6 @@
 module "eks-cluster-autoscaler" {
   source  = "github.com/coMakeIT-TIC/terraform_modules/aws/eks_autoscaler"
-  version = "2.1.0"
+  # version = "2.1.0"
 
   # insert the 3 required variables here
   cluster_name = var.cluster_name
