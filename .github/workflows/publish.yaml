@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - github_action
+      - main
 
 jobs:
   release:
@@ -37,7 +37,7 @@ jobs:
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: github_action
+          branch: main
           force: true
 
       # - name: Create GitHub release
