@@ -2,7 +2,7 @@ name: Release
 on:
   push:
     branches:
-      - git_action_Workflow
+      - main
 
 jobs:
   release:
@@ -40,18 +40,18 @@ jobs:
           branch: main
           force: true
 
-      - name: Create GitHub release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+      # - name: Create GitHub release
+      #   id: create_release
+      #   uses: actions/create-release@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: env.RELEASE_VERSION
+      #     release_name: Release ${{ env.RELEASE_VERSION }}
+      #     body: |
+      #       Release ${{ github.ref }}
+      #     draft: false
+      #     prerelease: false
 
-      - name: Output release URL
-        run: echo ${{ steps.create_release.outputs.url }}
+      # - name: Output release URL
+      #   run: echo ${{ steps.create_release.outputs.url }}
