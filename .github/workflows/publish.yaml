@@ -20,6 +20,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Setup GIT
+        run: |
+          git config --global user.email "tic.dev@comakeit.com"
+          git config --global user.name "comakeit-tic"
+
       - name: Bump package version
         run: npm version patch -m "Bump version to %s [skip ci]"
 
