@@ -35,9 +35,8 @@ jobs:
 
       - name: Push changes to GitHub
         uses: ad-m/github-push-action@v0.6.0
-        env:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
         with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
           force: true
 
