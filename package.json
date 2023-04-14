@@ -1,6 +1,6 @@
 {
   "name": "generator-tf-wdi",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "terraform generator",
   "homepage": "coMakeIT-TIC/generator-tf-wdi/",
   "author": {
