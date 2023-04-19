@@ -47,3 +47,12 @@ Kiali is an observability console for Istio with service mesh configuration capa
 ```
 kubectl port-forward service/kiali 5000:20001 -n istio-system
 ```
+#### NOTE :- 
+
+Add a namespace label to instruct Istio to automatically inject Envoy sidecar proxies when you deploy your application later:
+
+(by default this will be enabled for you, based on the namespace you created for application development, or else you can config it like this:)
+```
+kubectl label namespace <namespace> istio-injection=enabled
+```
+

@@ -19,37 +19,47 @@ const fileListAws = [
   "eks/data-source.tf"
 ];
 
-const fileListECR = ["ecr/ecr.tf", "ecr/provider.tf", "ecr/variables.tf"];
+const fileListECR = [
+  "ecr/variables.tf",
+  "ecr/provider.tf",
+  "ecr/main.tf"
+];
 
 const fileListEcrBuildAndPush = [
-  "ecr-build&publish/build-image.tf",
-  "ecr-build&publish/provider.tf",
-  "ecr-build&publish/publish-image.tf",
+  "ecr-build&publish/00-variables.tf",
+  "ecr-build&publish/01-provider.tf",
+  "ecr-build&publish/02-build-image.tf",
+  "ecr-build&publish/03-publish-image.tf",
   "ecr-build&publish/README.md",
-  "ecr-build&publish/variables.tf"
 ];
 
 const fileListEBS = [
-  "ebs/ebs_csi_driver.tf",
+  "ebs/variables.tf",
   "ebs/provider.tf",
-  "ebs/variables.tf"
+  "ebs/main.tf"
 ];
 
-const fileListHelmNginx = ["helm/istio.tf", "helm/provider.tf"];
-
-const fileListNamespace = ["namespace/namespace.tf", "namespace/provider.tf"];
-
-const fileListMonitoring = [
-  "monitoring/grafana.yaml",
-  "monitoring/kiali.yaml",
-  "monitoring/monitoring.tf",
-  "monitoring/prometheus.yaml",
-  "monitoring/provider.tf",
-  "monitoring/README.md",
-  "monitoring/variables.tf"
+const fileListHelmIstio = [
+  "helm/istio.tf", 
+  "helm/provider.tf"
 ];
 
-const fileListEksWebUI = ["eks-web-ui/provider.tf", "eks-web-ui/web-ui.tf"];
+const fileListNamespace = [
+  "namespace/namespace.tf", 
+  "namespace/provider.tf"
+];
+
+const fileListIstioMonitoring = [
+  "istio-monitoring/variables.tf",
+  "istio-monitoring/provider.tf",
+  "istio-monitoring/main.tf",
+  "istio-monitoring/README.md"
+];
+
+const fileListEksWebUI = [
+  "eks-web-ui/provider.tf",
+  "eks-web-ui/main.tf"
+];
 
 // Below files are not required for M1
 
@@ -75,11 +85,11 @@ module.exports = {
   fileListAws,
   fileListGcp,
   fileListAzure,
-  fileListHelmNginx,
+  fileListHelmIstio,
   fileListNamespace,
   fileListEBS,
   fileListECR,
   fileListEcrBuildAndPush,
-  fileListMonitoring,
+  fileListIstioMonitoring,
   fileListEksWebUI
 };

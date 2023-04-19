@@ -62,11 +62,10 @@ function aws {
         directories=(
         "./eks"
         "./helm"
-        "./ebs"
+        "./istio-monitoring"
+        "./eks-web-ui"
         "./ecr"
         "./ecr-build&publish"
-        "./monitoring"
-        "./eks-web-ui"
         )
 
         # Loop through each directory and execute command
@@ -76,7 +75,7 @@ function aws {
                 echo "Processing directory: $dir"
                 cd "$dir" || exit
                 # Execute your command here
-                echo "Initiating terrafrom in $dir"
+                echo "Initiating terraform in $dir"
                 terraform init
                 echo "Auto applying terraform in $dir"
                 terraform apply -auto-approve

@@ -8,12 +8,12 @@ const {
   fileListGcp,
   fileListAzure,
   fileListMinikube,
-  fileListHelmNginx,
+  fileListHelmIstio,
   fileListNamespace,
   fileListEBS,
   fileListECR,
   fileListEcrBuildAndPush,
-  fileListMonitoring,
+  fileListIstioMonitoring,
   fileListEksWebUI
 } = require("./assets/filesList");
 
@@ -126,11 +126,9 @@ module.exports = class extends Generator {
       }
 
       this.log("Adding Helm to cloud provider");
-      this._fileHelper(fileListHelmNginx, options, copyOpts);
+      this._fileHelper(fileListHelmIstio, options, copyOpts);
 
-      // can be used in future versions
-      
-      // this.log("creating namespace");
+      // can be used in future versions <create Namespace>
       // this._fileHelper(fileListNamespace, options, copyOpts);
 
       // Generate ECR repositories only if the generateInfra is true
@@ -141,7 +139,7 @@ module.exports = class extends Generator {
 
       // Generate Monitoring Files only if the monitoring is true
       if (options.monitoring === "true") {
-        this._fileHelper(fileListMonitoring, options, copyOpts);
+        this._fileHelper(fileListIstioMonitoring, options, copyOpts);
       }
 
       // Generate K8s Web UI only if the k8sWebUI is true
@@ -235,7 +233,7 @@ module.exports = class extends Generator {
     fileList.forEach(file => {
       this.fs.copyTpl(
         this.templatePath(file),
-        this.destinationPath(`${opts.projectName}/terrafrom/${file}`),
+        this.destinationPath(`${opts.projectName}/terraform/${file}`),
         opts,
         copyOpts
       );
@@ -243,6 +241,6 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.log("Terrafrom files Generation completed...");
+    this.log("Terraform files Generation completed...");
   }
 };

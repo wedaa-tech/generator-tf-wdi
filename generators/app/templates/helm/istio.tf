@@ -50,8 +50,50 @@ resource "helm_release" "istio-ingressgateway" {
     name = "labels.istio"
     value = "ingressgateway"
   }
+  # provision's application loadbalancer
+  set {
+    name  = "service.type"
+    value = "NodePort"
+  }
 }
 
+resource "kubernetes_ingress_v1" "ingress" {
+  metadata {
+    name = "ingress"
+    namespace = "istio-system"
+    labels = {
+      app = "ingress"
+    }
+    annotations = {
+      "kubernetes.io/ingress.class"       = "alb"
+      "alb.ingress.kubernetes.io/scheme"  = "internet-facing"      
+    }
+  }
+
+  spec {
+    rule {
+      http {
+        path {
+          backend {
+            service {
+              name = "istio-ingressgateway"
+              port {
+                number = 80
+              }
+            }
+          }
+          path = "/*"
+        }
+      }
+    }
+  }
+
+  depends_on = [
+    helm_release.istio-ingressgateway
+  ]
+}
+
+# Adds default namespace as side car in istio 
 resource "null_resource" "kubectl" {
   provisioner "local-exec" {
     command = "kubectl label namespace default istio-injection=enabled"
