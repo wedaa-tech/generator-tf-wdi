@@ -7,6 +7,14 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = "2.17.0"
     }
+    http = {
+      source  = "hashicorp/http"
+      version = "3.2.1"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.8.0"
+    }
   }
 }
 

@@ -4,13 +4,13 @@ const Generator = require("yeoman-generator");
 // Const prompts = require("./assets/prompts");
 
 const {
-  fileListAws,
+  fileListEks,
+  fileListEksDrivers,
+  fileListEck,
   fileListGcp,
   fileListAzure,
   fileListMinikube,
   fileListHelmIstio,
-  fileListNamespace,
-  fileListEBS,
   fileListECR,
   fileListEcrBuildAndPush,
   fileListIstioMonitoring,
@@ -106,8 +106,8 @@ module.exports = class extends Generator {
       switch (options.cloudProvider) {
         case "aws":
           this.log("AWS Generator");
-          this._fileHelper(fileListAws, options, copyOpts);
-          this._fileHelper(fileListEBS, options, copyOpts);
+          this._fileHelper(fileListEks, options, copyOpts);
+          this._fileHelper(fileListEksDrivers, options, copyOpts);
           break;
         case "gcp":
           this.log("GCP Generator");
@@ -128,7 +128,7 @@ module.exports = class extends Generator {
       this.log("Adding Helm to cloud provider");
       this._fileHelper(fileListHelmIstio, options, copyOpts);
 
-      // can be used in future versions <create Namespace>
+      // Can be used in future versions <create Namespace>
       // this._fileHelper(fileListNamespace, options, copyOpts);
 
       // Generate ECR repositories only if the generateInfra is true
@@ -145,6 +145,10 @@ module.exports = class extends Generator {
       // Generate K8s Web UI only if the k8sWebUI is true
       if (options.k8sWebUI === "true") {
         this._fileHelper(fileListEksWebUI, options, copyOpts);
+      }
+
+      if (options.enableECK === "true") {
+        this._fileHelper(fileListEck, options, copyOpts);
       }
 
       // This._servicesOptionsHelper(options, copyOpts);

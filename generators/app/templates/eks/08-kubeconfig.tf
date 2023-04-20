@@ -4,6 +4,7 @@ resource "null_resource" "kubectl" {
   }
   depends_on = [
     aws_eks_cluster.aws_eks_cluster_tic,
-    aws_eks_node_group.worker-node-group
+    aws_eks_node_group.eck-node-group,
+    aws_eks_node_group.apps-node-group
   ]
 }

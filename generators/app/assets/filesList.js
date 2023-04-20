@@ -1,53 +1,52 @@
-const fileListAws = [
+const fileListEks = [
   "auto-destroy.sh",
   "auto-deploy.sh",
   "install.sh",
   "destroy.sh",
   "terraform-install.sh",
   "README.md",
-  "eks/cluster.tf",
-  "eks/IAMrole-eks.tf",
-  "eks/IAMrole-worker.tf",
-  "eks/kubeconfig.tf",
-  "eks/identity-provider.tf",
-  "eks/node-group.tf",
-  "eks/provider.tf",
-  "eks/variables.tf",
-  "eks/vpc.tf",
-  "eks/autoscaling-group.tf",
-  "eks/check-infra.tf",
-  "eks/data-source.tf"
+  "eks/00-variables.tf",
+  "eks/01-provider.tf",
+  "eks/02-vpc.tf",
+  "eks/03-iam-role-eks.tf",
+  "eks/04-cluster.tf",
+  "eks/05-iam-role-worker.tf",
+  "eks/06-node-group.tf",
+  "eks/07-data-source.tf",
+  "eks/08-kubeconfig.tf",
+  "eks/09-identity-provider.tf",
+  "eks/10-check-infra.tf"
 ];
 
-const fileListECR = [
-  "ecr/variables.tf",
-  "ecr/provider.tf",
-  "ecr/main.tf"
+const fileListEksDrivers = [
+  "eks-drivers/main.tf",
+  "eks-drivers/provider.tf",
+  "eks-drivers/variables.tf"
 ];
+
+const fileListEck = [
+  "eck/resources/crds.yaml",
+  "eck/resources/operator.yaml",
+  "eck/00-variables.tf",
+  "eck/01-provider.tf",
+  "eck/02-operator.tf",
+  "eck/03-elasticsearch.tf",
+  "eck/04-kibana.tf"
+];
+
+const fileListECR = ["ecr/variables.tf", "ecr/provider.tf", "ecr/main.tf"];
 
 const fileListEcrBuildAndPush = [
   "ecr-build&publish/00-variables.tf",
   "ecr-build&publish/01-provider.tf",
   "ecr-build&publish/02-build-image.tf",
   "ecr-build&publish/03-publish-image.tf",
-  "ecr-build&publish/README.md",
+  "ecr-build&publish/README.md"
 ];
 
-const fileListEBS = [
-  "ebs/variables.tf",
-  "ebs/provider.tf",
-  "ebs/main.tf"
-];
+const fileListHelmIstio = ["helm/istio.tf", "helm/provider.tf"];
 
-const fileListHelmIstio = [
-  "helm/istio.tf", 
-  "helm/provider.tf"
-];
-
-const fileListNamespace = [
-  "namespace/namespace.tf", 
-  "namespace/provider.tf"
-];
+const fileListNamespace = ["namespace/namespace.tf", "namespace/provider.tf"];
 
 const fileListIstioMonitoring = [
   "istio-monitoring/variables.tf",
@@ -56,10 +55,7 @@ const fileListIstioMonitoring = [
   "istio-monitoring/README.md"
 ];
 
-const fileListEksWebUI = [
-  "eks-web-ui/provider.tf",
-  "eks-web-ui/main.tf"
-];
+const fileListEksWebUI = ["eks-web-ui/provider.tf", "eks-web-ui/main.tf"];
 
 // Below files are not required for M1
 
@@ -82,12 +78,13 @@ const fileListGcp = [
 ];
 
 module.exports = {
-  fileListAws,
+  fileListEks,
+  fileListEksDrivers,
+  fileListEck,
   fileListGcp,
   fileListAzure,
   fileListHelmIstio,
   fileListNamespace,
-  fileListEBS,
   fileListECR,
   fileListEcrBuildAndPush,
   fileListIstioMonitoring,
