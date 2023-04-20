@@ -39,9 +39,10 @@ function aws {
         # List of directories to process
         directories=(
         "./eks-web-ui"
-        "./monitoring"
-        "./ebs"
+        "./istio-monitoring"
         "./helm"
+        "./eck"
+        "./eks-drivers"
         "./eks"
         )
 

@@ -44,7 +44,11 @@ const fileListEcrBuildAndPush = [
   "ecr-build&publish/README.md"
 ];
 
-const fileListHelmIstio = ["helm/istio.tf", "helm/provider.tf"];
+const fileListHelmIstio = [
+  "helm/istio.tf", 
+  "helm/provider.tf",
+  "helm/variables.tf"
+];
 
 const fileListNamespace = ["namespace/namespace.tf", "namespace/provider.tf"];
 

@@ -66,7 +66,8 @@ resource "kubernetes_ingress_v1" "ingress" {
     }
     annotations = {
       "kubernetes.io/ingress.class"       = "alb"
-      "alb.ingress.kubernetes.io/scheme"  = "internet-facing"      
+      "alb.ingress.kubernetes.io/scheme"  = "internet-facing"  
+      "alb.ingress.kubernetes.io/load-balancer-name" = "${var.cluster_name}-istio-alb"    
     }
   }
 
@@ -90,6 +91,28 @@ resource "kubernetes_ingress_v1" "ingress" {
 
   depends_on = [
     helm_release.istio-ingressgateway
+  ]
+}
+
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [kubernetes_ingress_v1.ingress]
+
+  create_duration = "30s"
+}
+
+data "aws_lb" "istio_alb" {
+  name = "${var.cluster_name}-istio-alb"
+  depends_on = [
+    time_sleep.wait_30_seconds
+  ]
+}
+
+resource "null_resource" "print_alb_dns_name" {
+  provisioner "local-exec" {
+    command = "echo ${data.aws_lb.istio_alb.dns_name} >> output.txt"
+  }
+  depends_on = [
+    data.aws_lb.istio_alb
   ]
 }
 
