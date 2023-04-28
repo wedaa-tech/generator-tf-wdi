@@ -19,8 +19,17 @@ resource "null_resource" "build_image" {
             
             echo "CURRENT DIR:-" $(pwd)
 
-            # Execute the commandt
-            npm run java:docker:dev
+            # Execute the command, based on machine type
+            MACHINE_TYPE=`uname -m`
+
+            # Execute the command
+            if [ $MACHINE_TYPE == 'x86_64' ]; then
+                npm run java:docker
+            elif [ $MACHINE_TYPE == 'arm64' ]; then
+                npm run java:docker:arm64
+            else
+                echo "Unsupported machine architecture: $MACHINE_TYPE"
+            fi
 
             # Change back to the original directory
             cd ..

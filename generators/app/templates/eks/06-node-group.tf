@@ -3,10 +3,10 @@ resource "aws_eks_node_group" "eck-node-group" {
   node_group_name = "${var.cluster_name}-eck-node-group"
   node_role_arn   = aws_iam_role.workernodes.arn
   subnet_ids      = aws_subnet.k8s-acc.*.id
-  instance_types  = ["t3.large"]
+  instance_types  = ["t3.xlarge"]
 
   scaling_config {
-    max_size     = 2
+    max_size     = 1
     desired_size = 1
     min_size     = 1
   }
@@ -29,10 +29,10 @@ resource "aws_eks_node_group" "apps-node-group" {
   node_group_name = "${var.cluster_name}-apps-node-group"
   node_role_arn   = aws_iam_role.workernodes.arn
   subnet_ids      = aws_subnet.k8s-acc.*.id
-  instance_types  = ["t3.medium"]
+  instance_types  = ["t3.xlarge"]
 
   scaling_config {
-    max_size     = 2
+    max_size     = 3
     desired_size = 1
     min_size     = 1
   }
