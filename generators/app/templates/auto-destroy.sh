@@ -4,12 +4,12 @@
 
 #AWS
 function aws {
-    echo "You selected AWS"
+     echo -e "You have opted for \033[1;32mAWS\033[0m cloud provider"
     # Add code here to execute the action for aws
     echo "Initiating the aws action...."
     while true; do
       echo ""
-      echo "Setting up aws configuration which will be used be terraform"
+      echo "Set up AWS credentials which will be used be terraform"
       echo -n "Provide aws access key:"
       read aws_access_key
       echo -n "Provide aws secret key:"
@@ -20,7 +20,7 @@ function aws {
       echo -e "\033[1;33mProvided aws configuration\033[0m"
       echo "aws access key:"${AWS_ACCESS_KEY_ID}
       echo "aws secret key:"${AWS_SECRET_ACCESS_KEY}
-      echo -n "Ensure that your aws configuration are correct, if you agree Enter(yes):"
+      echo -n "Ensure that your aws credentials are correct,(yes/no):"
       read user_confirmation
 
       # convert user input to lowercase
@@ -32,10 +32,10 @@ function aws {
     echo ""
     echo -e "\033[1;32mAws credentials are set!\033[0m"
     echo ""
-    echo -n "Continue with the destroying WDI, if you agree Enter(yes):"
+    echo -n "Continue with the destroying Infrastructure,(yes/no):"
     read user_continue_action
     if [ "$user_continue_action" == "yes" ]; then
-    echo "Deploying the WDI in our AWS cloud....."
+    echo "Destroying the Infrastructure in our AWS cloud....."
         # List of directories to process
         directories=(
         "./eks-web-ui"
@@ -67,7 +67,7 @@ function aws {
       echo ""
     else 
         echo ""
-        echo -e "Looks like you have already destroyed the WDI, Thank you!\U0001F431"
+        echo -e "Looks like you have already destroyed the Infrastructure, Thank you!\U0001F431"
         echo ""
     fi
 }
@@ -87,72 +87,22 @@ function gcp {
 ############################ SCRIPT STARTS ##########################
 
 # Check if figlet is installed
-if ! which figlet > /dev/null; then
-    # Install figlet
-    sudo apt-get -y install figlet
-fi
-
-
-# Define the options
-options=("1. AWS" "2. AZURE" "3. GCP")
-
-# Initialize variables
-selected=0
-num_options=${#options[@]}
-
-# Clear the screen
-# clear
-
-# Loop until the user selects an option
-while true; do
-  # Display the options 
-  figlet -f slant "AutoDeploy" 
-  echo "Select the cloud provider"
-  for (( i=0; i<$num_options; i++ )); do
-    if [ $i -eq $selected ]; then
-      echo -e "\033[1;32m> ${options[$i]}\033[0m"
-    else
-      echo "  ${options[$i]}"
+if [ "$(uname -m)" = "x86_64" ]; then
+    if ! which figlet > /dev/null; then
+        # Install figlet using apt-get
+        sudo apt-get -y install figlet
     fi
-  done
-
-  # Get input from the user
-  read -s -n 1 key
-  case "$key" in
-    "A") # Up arrow
-      ((selected--))
-      if [ $selected -lt 0 ]; then
-        selected=$((num_options-1))
-      fi
-      ;;
-    "B") # Down arrow
-      ((selected++))
-      if [ $selected -ge $num_options ]; then
-        selected=0
-      fi
-      ;;
-    "") # Enter key
-      break
-      ;;
-  esac
-
-  # Clear the screen
-  clear
-done
-
-# Display the selected option
-# echo "You selected: ${options[$selected]}"
-
-# Execute different actions based on the selected option
-if [ $selected -eq 0 ]; then
-  aws
-  # Add code here to execute the action for aws
-elif [ $selected -eq 1 ]; then
-  azure
-  # Add code here to execute the action for azure
-elif [ $selected -eq 2 ]; then
-  gcp
-  # Add code here to execute the action for 
+elif [ "$(uname -m)" = "arm64" ]; then
+    if ! which figlet > /dev/null; then
+        # Install figlet using Homebrew
+        brew install figlet
+    fi
 else
-  echo "Invalid selection"
+    echo "Unsupported architecture: $(uname -m)"
+    exit 1
 fi
+
+# Use figlet to print "AutoDeploy"
+figlet -f slant "AutoDestroy"
+echo ""
+aws

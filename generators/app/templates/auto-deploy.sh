@@ -127,8 +127,5 @@ fi
 
 # Use figlet to print "AutoDeploy"
 figlet -f slant "AutoDeploy"
-
-
-figlet -f slant "AutoDeploy" 
 echo ""
 aws

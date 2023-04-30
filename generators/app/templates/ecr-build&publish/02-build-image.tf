@@ -9,17 +9,28 @@ resource "null_resource" "build_image" {
         # Iterate over each directory
         for dir in */ ; do 
             # Check if the directory name matches a certain pattern
-            if [[ "$dir" == "kubernetes/" || "$dir" == "terraform/" ]]; then
+            if [[ "$dir" == "kubernetes/" || "$dir" == "terraform/" || "$dir" == "blueprints/" ]]; then
                 echo "SKIPPING THIS DIR:-" $dir
                 # If it matches, skip to the next directory
                 continue
             fi
             # Change into the directory
             cd "$dir"
-            
             echo "CURRENT DIR:-" $(pwd)
-            npm run java:docker
-            
+
+            # Check if the directory contains a folder called "go"
+            if [ -d "go" ]; then
+                # Change into the "go" directory
+                cd "go"
+                # Run the desired command
+                go mod tidy
+                docker build -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                # Change back to the previous directory
+                cd ..
+            else
+                # If the directory doesn't contain a "go" folder, run the following command
+                npm run java:docker
+            fi            
             # Change back to the original directory
             cd ..
         done
