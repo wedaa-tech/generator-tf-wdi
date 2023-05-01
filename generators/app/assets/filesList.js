@@ -31,7 +31,8 @@ const fileListEck = [
   "eck/01-provider.tf",
   "eck/02-operator.tf",
   "eck/03-elasticsearch.tf",
-  "eck/04-kibana.tf"
+  "eck/04-kibana.tf",
+  "eck/README.md"
 ];
 
 const fileListECR = ["ecr/variables.tf", "ecr/provider.tf", "ecr/main.tf"];
@@ -45,7 +46,7 @@ const fileListEcrBuildAndPush = [
 ];
 
 const fileListHelmIstio = [
-  "helm/istio.tf", 
+  "helm/istio.tf",
   "helm/provider.tf",
   "helm/variables.tf"
 ];
@@ -59,7 +60,11 @@ const fileListIstioMonitoring = [
   "istio-monitoring/README.md"
 ];
 
-const fileListEksWebUI = ["eks-web-ui/provider.tf", "eks-web-ui/main.tf"];
+const fileListEksWebUI = [
+  "eks-web-ui/provider.tf",
+  "eks-web-ui/main.tf",
+  "eks-web-ui/README.md"
+];
 
 // Below files are not required for M1
 
