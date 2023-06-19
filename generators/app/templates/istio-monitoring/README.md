@@ -2,11 +2,15 @@
 
 This directory contains  deployments of various addons that integrate with Istio. While these applications are not a part of Istio, they are essential to making the most of Istio's observability features.
 
-## Prerequisites
+## Prerequisites for EKS
 ---
 1. You have created an Amazon EKS cluster.
 2. You are using a kubectl client that is configured to communicate with your Amazon EKS cluster.
 
+## Prerequisites for AKS
+---
+1. You have created an Azure AKS cluster.
+2. You are using a kubectl client that is configured to communicate with your Azure AKS cluster.
 ## Prometheus
 ---
 Prometheus is an open source monitoring system and time series database. You can use Prometheus with Istio to record metrics that track the health of Istio and of applications within the service mesh. You can visualize metrics using tools like Grafana and Kiali.

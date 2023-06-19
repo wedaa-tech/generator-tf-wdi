@@ -2,25 +2,25 @@
 
 # Define the functions to call
 
-#AWS
-function aws {
-     echo -e "You have opted for \033[1;32mAWS\033[0m cloud provider"
-    # Add code here to execute the action for aws
-    echo "Initiating the aws action...."
+#AZURE
+function azure {
+     echo -e "You have opted for \033[1;32mAZURE\033[0m cloud provider"
+    # Add code here to execute the action for azure
+    echo "Initiating the azure action...."
     while true; do
       echo ""
-      echo "Set up AWS credentials which will be used be terraform"
-      echo -n "Provide aws access key:"
-      read aws_access_key
-      echo -n "Provide aws secret key:"
-      read aws_secret_key
-      export AWS_ACCESS_KEY_ID=$aws_access_key
-      export AWS_SECRET_ACCESS_KEY=$aws_secret_key
+      echo "Set up Azure credentials which will be used be terraform"
+      echo -n "Provide azure client_id:"
+      read client_id
+      echo -n "Provide azure client_secret:"
+      read client_secret
+      export AZURE_CLIENT_ID=$client_id
+      export AZURE_CLIENT_SECRET=$client_secret
       echo ""
-      echo -e "\033[1;33mProvided aws configuration\033[0m"
-      echo "aws access key:"${AWS_ACCESS_KEY_ID}
-      echo "aws secret key:"${AWS_SECRET_ACCESS_KEY}
-      echo -n "Ensure that your aws credentials are correct,(yes/no):"
+      echo -e "\033[1;33mProvided azure service principal details\033[0m"
+      echo "azure client_id:"${AZURE_CLIENT_ID}
+      echo "azure client_secret:"${AZURE_CLIENT_SECRET}
+      echo -n "Ensure that your azure credentials are correct,(yes/no):"
       read user_confirmation
 
       # convert user input to lowercase
@@ -30,20 +30,20 @@ function aws {
       fi
     done
     echo ""
-    echo -e "\033[1;32mAws credentials are set!\033[0m"
+    echo -e "\033[1;32mAzure service principal credentials are set!\033[0m"
     echo ""
     echo -n "Continue with the destroying Infrastructure,(yes/no):"
     read user_continue_action
     if [ "$user_continue_action" == "yes" ]; then
-    echo "Destroying the Infrastructure in our AWS cloud....."
+    echo "Destroying the Infrastructure in our Azure cloud....."
         # List of directories to process
         directories=(
         "./k8s-web-ui"
         "./istio-monitoring"
         "./helm"
         "./eck"
-        "./eks-drivers"
-        "./eks"
+        "./aks"
+        "./acr"
         )
 
         # Loop through each directory and execute command
@@ -63,25 +63,13 @@ function aws {
       echo ""
       echo -e "\033[1m\033[32mInfrastructure was destroyed successfully!\U0001F63B\033[0m"
       echo ""
-      echo -e "\033[1;31mMake sure you delete the ECR manually.\U0001F431\033[0m"
+      echo -e "\033[1;31mMake sure you delete the ACR manually.\U0001F431\033[0m"
       echo ""
     else 
         echo ""
         echo -e "Looks like you have already destroyed the Infrastructure, Thank you!\U0001F431"
         echo ""
     fi
-}
-
-function azure {
-    echo "You selected AZURE"
-    # Add code here to execute the action for azure
-    echo -e "we are not supporting azure as of now, please come back later!\U0001F600"
-}
-
-function gcp {
-    echo "You selected GCP"
-    # Add code here to execute the action for gcp
-    echo -e "we are not supporting gcp as of now, please come back later!\U0001F600"
 }
 
 ############################ SCRIPT STARTS ##########################
@@ -105,4 +93,4 @@ fi
 # Use figlet to print "AutoDeploy"
 figlet -f slant "AutoDestroy"
 echo ""
-aws
+azure

@@ -60,22 +60,38 @@ const fileListIstioMonitoring = [
   "istio-monitoring/README.md"
 ];
 
-const fileListEksWebUI = [
-  "eks-web-ui/provider.tf",
-  "eks-web-ui/main.tf",
-  "eks-web-ui/README.md"
+const fileListK8sWebUI = [
+  "k8s-web-ui/provider.tf",
+  "k8s-web-ui/main.tf",
+  "k8s-web-ui/README.md"
 ];
 
-// Below files are not required for M1
+const fileListAks = [
+  "aks/00-variables.tf",
+  "aks/01-provider.tf",
+  "aks/02-main.tf",
+  "aks/03-kubeconfig.tf"
+];
 
-// ? Need to add
+const fileListAcr = [
+  "acr/00-variables.tf",
+  "acr/01-provider.tf",
+  "acr/02-main.tf"
+];
+
+const fileListAcrBuildAndPush = [
+  "acr-build&publish/00-variables.tf",
+  "acr-build&publish/01-provider.tf",
+  "acr-build&publish/02-build-image.tf",
+  "acr-build&publish/03-publish-image.tf",
+  "acr-build&publish/README.md"
+];
 
 const fileListAzure = [
-  "aks/aks-cluster",
-  "aks/kubernetes-config",
-  "aks/outputs.tf",
-  "aks/variables.tf",
-  "aks/main.tf"
+  "azure-auto-destroy.sh",
+  "azure-auto-deploy.sh",
+  "terraform-install.sh",
+  "README.md"
 ];
 
 const fileListGcp = [
@@ -91,11 +107,14 @@ module.exports = {
   fileListEksDrivers,
   fileListEck,
   fileListGcp,
+  fileListAks,
+  fileListAcr,
+  fileListAcrBuildAndPush,
   fileListAzure,
   fileListHelmIstio,
   fileListNamespace,
   fileListECR,
   fileListEcrBuildAndPush,
   fileListIstioMonitoring,
-  fileListEksWebUI
+  fileListK8sWebUI
 };

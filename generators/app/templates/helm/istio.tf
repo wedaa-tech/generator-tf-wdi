@@ -53,10 +53,36 @@ resource "helm_release" "istio-ingressgateway" {
   # provision's application loadbalancer
   set {
     name  = "service.type"
+    <%_ if (cloudProvider == "aws") { _%>
     value = "NodePort"
+    <%_ } _%>
+    <%_ if (cloudProvider == "azure") { _%>
+    value = "LoadBalancer"
+    <%_ } _%>
   }
 }
 
+<%_ if (cloudProvider == "azure") { _%>
+
+resource "time_sleep" "wait_30_seconds" {
+  depends_on = [
+    helm_release.istio-ingressgateway
+    ]
+  create_duration = "30s"
+}
+
+resource "null_resource" "print_loadBalancer_public_ip" {
+  provisioner "local-exec" {
+    command = "kubectl get service istio-ingressgateway -n istio-system -o jsonpath='{.status.loadBalancer.ingress[0].ip}' >> output.txt"
+  }
+  depends_on = [
+    time_sleep.wait_30_seconds
+  ]
+}
+
+<%_ } _%>
+
+<%_ if (cloudProvider == "aws") { _%>
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
     name = "ingress"
@@ -65,9 +91,15 @@ resource "kubernetes_ingress_v1" "ingress" {
       app = "ingress"
     }
     annotations = {
+      <%_ if (cloudProvider == "aws") { _%>
       "kubernetes.io/ingress.class"       = "alb"
       "alb.ingress.kubernetes.io/scheme"  = "internet-facing"  
-      "alb.ingress.kubernetes.io/load-balancer-name" = "${var.cluster_name}-istio-alb"    
+      "alb.ingress.kubernetes.io/load-balancer-name" = "${var.cluster_name}-istio-alb" 
+      <%_ } _%>
+      <%_ if (cloudProvider == "azure") { _%>
+      "kubernetes.io/ingress.class" = "azure/ingress-controller"
+      "service.beta.kubernetes.io/azure-dns-label-name" = "istio" 
+      <%_ } _%>   
     }
   }
 
@@ -115,6 +147,7 @@ resource "null_resource" "print_alb_dns_name" {
     data.aws_lb.istio_alb
   ]
 }
+<%_ } _%>
 
 # Adds default namespace as side car in istio 
 resource "null_resource" "kubectl" {

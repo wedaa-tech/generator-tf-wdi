@@ -2,12 +2,12 @@
 
 # Define the functions to call
 
-#applicationDeployment
+#applicationDeploymentazure
 function applicationDeployment {
   echo ""
   echo -e "\033[1mPrerequisite:\033[0m"
-  echo " 1. Make sure that you have installed kubectl and is configured with the up and running eks cluster."
-  echo " 2. Make sure that you have installed aws-cli and configured it."
+  echo " 1. Make sure that you have installed kubectl and is configured with the up and running aks cluster."
+  echo " 2. Make sure that you have installed azure-cli and configured it."
   echo " 3. Make sure that domain mapping is done properly."
   echo " NOTE:- You will find the DNS name of application load balancer under ./helm dir in output.txt file"
   echo ""
@@ -25,25 +25,25 @@ function applicationDeployment {
   fi
 }
 
-#AWS
-function aws {
-    echo -e "You have opted for \033[1;32mAWS\033[0m cloud provider"
-    # Add code here to execute the action for aws
-    echo "Initiating the aws action...."
+#Azure
+function azure {
+    echo -e "You have opted for \033[1;32mAZURE\033[0m cloud provider"
+    # Add code here to execute the action for azure
+    echo "Initiating the azure action...."
     while true; do
       echo ""
-      echo "Set up AWS credentials which will be used be terraform"
-      echo -n "Provide aws access key:"
-      read aws_access_key
-      echo -n "Provide aws secret key:"
-      read aws_secret_key
-      export AWS_ACCESS_KEY_ID=$aws_access_key
-      export AWS_SECRET_ACCESS_KEY=$aws_secret_key
+      echo "Set up Azure credentials which will be used be terraform"
+      echo -n "Provide azure client_id:"
+      read client_id
+      echo -n "Provide azure client_secret:"
+      read client_secret
+      export AZURE_CLIENT_ID=$client_id
+      export AZURE_CLIENT_SECRET=$client_secret
       echo ""
-      echo -e "\033[1;33mProvided aws credentials\033[0m"
-      echo "aws access key:"${AWS_ACCESS_KEY_ID}
-      echo "aws secret key:"${AWS_SECRET_ACCESS_KEY}
-      echo -n "Ensure that your aws credentials are correct,(yes/no):"
+      echo -e "\033[1;33mProvided azure service principal credentials\033[0m"
+      echo "azure client_id:"${AZURE_CLIENT_ID}
+      echo "azure client_secret:"${AZURE_CLIENT_SECRET}
+      echo -n "Ensure that your azure credentials are correct,(yes/no):"
       read user_confirmation
 
       # convert user input to lowercase
@@ -53,22 +53,21 @@ function aws {
       fi
     done
     echo ""
-    echo -e "\033[1;32mAws credentials are set!\033[0m"
+    echo -e "\033[1;32mAzure service principal credentials are set!\033[0m"
     echo ""
     echo -n "Continue with the Infrastructure deployment,(yes/no):"
     read user_continue_action
     if [ "$user_continue_action" == "yes" ]; then
-    echo "Deploying the Infrastructure in our AWS cloud....."
+    echo "Deploying the Infrastructure in our Azure cloud....."
         # List of directories to process
         directories=(
-        "./eks"
-        "./eks-drivers"
+        "./aks"
         "./eck"
         "./helm"
         "./istio-monitoring"
         "./k8s-web-ui"
-        "./ecr"
-        "./ecr-build&publish"
+        "./acr"
+        "./acr-build&publish"
         )
 
         # Loop through each directory and execute command
@@ -128,4 +127,4 @@ fi
 # Use figlet to print "AutoDeploy"
 figlet -f slant "AutoDeploy"
 echo ""
-aws
+azure
