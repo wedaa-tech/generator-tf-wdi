@@ -22,7 +22,15 @@ resource "null_resource" "build_image" {
             if [ -d "go" ]; then
                 # Change into the "go" directory
                 cd "go"
-                # Run the desired command
+                # Run the build command
+                go mod tidy
+                docker build -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                # Change back to the previous directory
+                cd ..
+            elif [ -d "gomicro" ]; then
+                # Change into the "gomicro" directory
+                cd "gomicro"
+                # Run the build command
                 go mod tidy
                 docker build -t $(pwd | awk -F'/' '{print $(NF-1)}') .
                 # Change back to the previous directory
