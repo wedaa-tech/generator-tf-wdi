@@ -40,6 +40,11 @@ module.exports = class extends Generator {
     };
 
     const options = JSON.parse(this.options);
+    options.onCloud =
+      options.cloudProvider !== undefined &&
+      options.cloudProvider !== "minikube"
+        ? "true"
+        : "false";
 
     this.log(options);
 
@@ -68,7 +73,9 @@ module.exports = class extends Generator {
           this._fileHelper(fileListMinikube, options, copyOpts);
           break;
         default:
-          console.log(`Sorry, we are out of ${options.cloudProvider}.`);
+          console.log(
+            `Sorry, ${options.cloudProvider} cloud is not supported.`
+          );
       }
 
       this.log("Adding Helm to cloud provider");

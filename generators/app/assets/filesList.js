@@ -102,6 +102,11 @@ const fileListGcp = [
   "gke/main.tf"
 ];
 
+const fileListMinikube = [
+  "minikube-auto-destroy.sh",
+  "minikube-auto-deploy.sh"
+];
+
 module.exports = {
   fileListEks,
   fileListEksDrivers,
@@ -116,5 +121,6 @@ module.exports = {
   fileListECR,
   fileListEcrBuildAndPush,
   fileListIstioMonitoring,
-  fileListK8sWebUI
+  fileListK8sWebUI,
+  fileListMinikube
 };

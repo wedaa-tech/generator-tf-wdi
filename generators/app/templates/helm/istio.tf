@@ -50,16 +50,13 @@ resource "helm_release" "istio-ingressgateway" {
     name = "labels.istio"
     value = "ingressgateway"
   }
+  <%_ if (onCloud == "true") { _%>
   # provision's application loadbalancer
   set {
     name  = "service.type"
-    <%_ if (cloudProvider == "aws") { _%>
-    value = "NodePort"
-    <%_ } _%>
-    <%_ if (cloudProvider == "azure") { _%>
-    value = "LoadBalancer"
-    <%_ } _%>
+    value = "<%= cloudProvider == "aws" ? "NodePort" : "LoadBalancer" %>"
   }
+  <%_ } _%>
 }
 
 <%_ if (cloudProvider == "azure") { _%>

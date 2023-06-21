@@ -9,6 +9,7 @@ resource "kubectl_manifest" "kibana" {
         count: 1
         elasticsearchRef:
           name: quickstart
+        <%_ if (onCloud == "true") { _%>
         podTemplate:
             spec:
               affinity:
@@ -28,6 +29,7 @@ resource "kubectl_manifest" "kibana" {
                         values:
                         - ${var.eck_node_pool}
                       <%_ } _%>
+        <%_ } _%>
   YAML
 
   depends_on = [
@@ -41,6 +43,7 @@ resource "kubectl_manifest" "kibana_lb" {
       kind: Service
       metadata:
         name: kibana-nlb
+        <%_ if (onCloud == "true") { _%>
         annotations:
           <%_ if (cloudProvider == "aws") { _%>
           service.beta.kubernetes.io/aws-load-balancer-type: external 
@@ -50,6 +53,7 @@ resource "kubectl_manifest" "kibana_lb" {
           <%_ if (cloudProvider == "azure") { _%>
           service.beta.kubernetes.io/azure-dns-label-name: kibana
           <%_ } _%>
+        <%_ } _%>
         namespace: default
       spec:
         type: LoadBalancer

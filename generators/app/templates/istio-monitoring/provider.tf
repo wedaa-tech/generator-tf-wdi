@@ -1,9 +1,10 @@
+<%_ if (onCloud == "true") { _%>
 terraform {
  required_providers {
 <%_ if (cloudProvider == "aws") { _%>
-  aws = {
-   source = "hashicorp/aws"
-  }
+    aws = {
+    source = "hashicorp/aws"
+    }
 <%_ } _%>
 <%_ if (cloudProvider == "azure") { _%>
    azurerm = {
@@ -13,6 +14,7 @@ terraform {
 <%_ } _%>
  }
 }
+<%_ } _%>
 
 provider "kubernetes" {
   config_path = "~/.kube/config"
