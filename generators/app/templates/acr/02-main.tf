@@ -6,6 +6,7 @@ resource "azurerm_container_registry" "acr" {
   location            = var.location
   sku                 = var.acr_sku
   admin_enabled       = true
+  tags                = var.tags
 }
 
 data "azurerm_kubernetes_cluster" "aks" {

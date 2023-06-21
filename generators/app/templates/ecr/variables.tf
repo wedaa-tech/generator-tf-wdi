@@ -3,3 +3,7 @@ variable "region" {
   default = <%- "\""+awsRegion+"\"" %>
 }
 
+variable "project_name" {
+  type        = string
+  default = <%- "\""+projectName+"\"" %>
+}

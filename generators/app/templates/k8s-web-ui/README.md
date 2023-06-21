@@ -1,4 +1,9 @@
-# Deploy Kubernetes Dashboard in aws or azure
+<%_ if (cloudProvider == "aws") { _%>
+# Deploy Kubernetes Dashboard in aws 
+<%_ } _%>
+<%_ if (cloudProvider == "azure") { _%>
+# Deploy Kubernetes Dashboard in azure
+<%_ } _%>
 
 Kubernetes Dashboard is a web-based user interface that allows users to manage, monitor, and troubleshoot Kubernetes clusters. It provides an overview of the cluster's resources, such as nodes, pods, services, and deployments, and allows users to perform common tasks, such as scaling up or down a deployment, updating a service, or deleting a pod.
 
@@ -30,14 +35,14 @@ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | gre
 
 Use the above generated access token on to the login page to access the Kubernetes WEB UI.
 
+<%_ if (cloudProvider == "aws") { _%>
 AWS Ref:
 https://repost.aws/knowledge-center/eks-cluster-kubernetes-dashboard
-
-or
-
+<%_ } _%>
+<%_ if (cloudProvider == "azure") { _%>
 Azure Ref:
 https://learn.microsoft.com/en-us/azure-stack/user/azure-stack-solution-template-kubernetes-dashboard?view=azs-2301
-
+<%_ } _%>
 
 Ref:
 https://github.com/kubernetes/dashboard/releases

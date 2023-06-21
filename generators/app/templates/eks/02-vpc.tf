@@ -9,7 +9,7 @@ resource "aws_vpc" "k8s-acc" {
   enable_dns_support   = true
   enable_dns_hostnames = true
   tags = {
-    "Name"                                      = "terraform-eks-k8s-acc-node"
+    "app"                                       = var.project_name
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
   }
 }
@@ -23,7 +23,7 @@ resource "aws_subnet" "k8s-acc" {
   map_public_ip_on_launch = true
 
   tags = {
-    "Name"                                      = "terraform-eks-k8s-acc-node"
+    "app"                                       = var.project_name
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
     "kubernetes.io/role/elb"                    = 1
   }
@@ -33,7 +33,7 @@ resource "aws_internet_gateway" "k8s-acc" {
   vpc_id = aws_vpc.k8s-acc.id
 
   tags = {
-    Name = "terraform-eks-k8s-acc"
+    app = var.project_name
   }
 }
 
@@ -43,6 +43,10 @@ resource "aws_route_table" "k8s-acc" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.k8s-acc.id
+  }
+
+  tags = {
+    app = var.project_name
   }
 }
 

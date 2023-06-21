@@ -11,6 +11,10 @@ resource "aws_iam_role" "workernodes" {
     }]
     Version = "2012-10-17"
   })
+
+  tags = {
+    app = var.project_name
+  }
 }
 
 resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {

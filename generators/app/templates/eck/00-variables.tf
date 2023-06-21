@@ -10,10 +10,4 @@ variable "eck_node_pool" {
   type        = string
   default     = "ecknodepool" 
 }
-
-variable "apps_node_pool" {
-  description = "name of the apps node pool."
-  type        = string
-  default     = "appnodepool" 
-}
 <%_ } _%>

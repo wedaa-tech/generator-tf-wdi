@@ -1,7 +1,7 @@
 resource "null_resource" "build_image" {
 
- provisioner "local-exec" {
-    
+  provisioner "local-exec" {
+
     command = <<-EOT
         # shifting to root directory
         cd ../../

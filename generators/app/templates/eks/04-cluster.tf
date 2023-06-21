@@ -7,6 +7,10 @@ resource "aws_eks_cluster" "aws_eks_cluster_tic" {
     subnet_ids = aws_subnet.k8s-acc.*.id
   }
 
+  tags = {
+    app = var.project_name
+  }
+
   depends_on = [
     aws_iam_role.eks-iam-role,
     aws_vpc.k8s-acc,

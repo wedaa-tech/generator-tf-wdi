@@ -5,11 +5,9 @@ variable "resource_group_name" {
 }
 
 variable "tags" {
-  description = "The tags to associate with your network and subnets."
   type        = map(string)
-
   default = {
-    APP = <%- "\""+projectName+"\"" %>
+    app = <%- "\""+projectName+"\"" %>
   }
 }
 
@@ -32,6 +30,11 @@ variable "dns_servers" {
   default     = []
 }
 
+variable "route_table" {
+  description = "Name of the route table."
+  type        = string
+  default     = <%- "\""+"route-table-"+projectName+"\"" %>
+}
 variable "location" {
   description = "Location (Azure Region)."
   type    = string
@@ -48,7 +51,7 @@ variable "subnet_name" {
   description = "Name of the subnets."
   type        = list(string)
   default     = [
-    <%- "\""+"public_subnet_"+clusterName+"_0\"," %>
+    <%- "\""+"public_subnet_"+projectName+"_0\"," %>
     ]  
 }
 

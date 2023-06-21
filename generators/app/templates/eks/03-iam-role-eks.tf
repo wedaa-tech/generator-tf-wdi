@@ -18,6 +18,10 @@ resource "aws_iam_role" "eks-iam-role" {
 }
 EOF
 
+  tags = {
+    app = var.project_name
+  }
+
 }
 
 # Optionally, enable Security Groups for Pods

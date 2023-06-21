@@ -4,7 +4,6 @@ resource "null_resource" "kubectl" {
   }
   depends_on = [
     azurerm_kubernetes_cluster.aks,
-    azurerm_kubernetes_cluster_node_pool.nodepool,
-    azurerm_network_security_rule.nsgrule
+    azurerm_kubernetes_cluster_node_pool.nodepool
   ]
 }

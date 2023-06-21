@@ -27,3 +27,10 @@ variable "acr_sku" {
   description = "The SKU of the Azure Container Registry"
   default     = "Basic"
 }
+
+variable "tags" {
+  type        = map(string)
+  default = {
+    app = <%- "\""+projectName+"\"" %>
+  }
+}
