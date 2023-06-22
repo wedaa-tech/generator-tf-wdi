@@ -136,10 +136,6 @@ data "aws_lb" "istio_alb" {
   ]
 }
 
-tags = {
-    app = var.project_name
-  }
-
 resource "null_resource" "print_alb_dns_name" {
   provisioner "local-exec" {
     command = "echo ${data.aws_lb.istio_alb.dns_name} >> output.txt"
