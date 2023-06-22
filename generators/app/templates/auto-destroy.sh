@@ -72,17 +72,6 @@ function aws {
     fi
 }
 
-function azure {
-    echo "You selected AZURE"
-    # Add code here to execute the action for azure
-    echo -e "we are not supporting azure as of now, please come back later!\U0001F600"
-}
-
-function gcp {
-    echo "You selected GCP"
-    # Add code here to execute the action for gcp
-    echo -e "we are not supporting gcp as of now, please come back later!\U0001F600"
-}
 
 ############################ SCRIPT STARTS ##########################
 
