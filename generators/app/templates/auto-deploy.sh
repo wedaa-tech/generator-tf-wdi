@@ -9,7 +9,7 @@ function applicationDeployment {
     echo " 1. Make sure that you have installed kubectl and is configured with the up and running eks cluster."
     echo " 2. Make sure that you have installed aws-cli and configured it."
     echo " 3. Make sure that domain mapping is done properly."
-    echo " NOTE:- You will find the DNS name of application load balancer under ./helm dir in output.txt file"
+    echo " NOTE:- You will find the DNS name of application load balancer under ./istio dir in output.txt file"
     echo ""
 
     echo -n "Confirm if you meet all the above requirements,(yes/no):"
@@ -64,7 +64,7 @@ function aws {
             "./eks"
             "./eks-drivers"
             "./eck"
-            "./helm"
+            "./istio"
             "./istio-monitoring"
             "./k8s-web-ui"
             "./ecr"

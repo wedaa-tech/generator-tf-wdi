@@ -40,7 +40,7 @@ function azure {
         directories=(
         "./k8s-web-ui"
         "./istio-monitoring"
-        "./helm"
+        "./istio"
         "./eck"
         "./aks"
         "./acr"

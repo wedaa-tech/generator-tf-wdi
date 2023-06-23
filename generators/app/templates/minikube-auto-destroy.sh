@@ -15,7 +15,7 @@ function minikube {
         # List of directories to process
         directories=(
         "./istio-monitoring"
-        "./helm"
+        "./istio"
         "./eck"
         )
 

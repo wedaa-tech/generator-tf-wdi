@@ -1,13 +1,10 @@
-data "aws_caller_identity" "current" {}
-
-resource "null_resource" "push_image_to_ecr" {
+resource "null_resource" "push_image_to_docker_hub" {
 
  provisioner "local-exec" {
     
     command = <<-EOT
-        # Use aws cli to login to ecr 
-        # aws-cli should be available and configured before ahead
-        aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com
+        # docker cli must be installed and configured
+        docker login
 
         # shifting to root directory
         cd ../../
@@ -31,8 +28,8 @@ resource "null_resource" "push_image_to_ecr" {
             current_dir_name=$(basename $current_dir)
 
             # provide region and account-id
-            docker tag $current_dir_name:latest ${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com/$current_dir_name:latest
-            docker push ${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com/$current_dir_name:latest
+            docker tag $current_dir_name:latest ${var.docker_repository_name}/$current_dir_name:latest
+            docker push ${var.docker_repository_name}/$current_dir_name:latest
 
             # Change back to the original directory
             cd ..

@@ -40,7 +40,7 @@ function aws {
         directories=(
         "./k8s-web-ui"
         "./istio-monitoring"
-        "./helm"
+        "./istio"
         "./eck"
         "./eks-drivers"
         "./eks"

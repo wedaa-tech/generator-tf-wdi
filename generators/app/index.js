@@ -13,7 +13,8 @@ const {
   fileListAcrBuildAndPush,
   fileListAzure,
   fileListMinikube,
-  fileListHelmIstio,
+  fileListDockerBuildAndPush,
+  fileListIstio,
   fileListECR,
   fileListEcrBuildAndPush,
   fileListIstioMonitoring,
@@ -71,6 +72,7 @@ module.exports = class extends Generator {
         case "minikube":
           this.log("minikube Generator");
           this._fileHelper(fileListMinikube, options, copyOpts);
+          this._fileHelper(fileListDockerBuildAndPush, options, copyOpts);
           break;
         default:
           console.log(
@@ -78,8 +80,7 @@ module.exports = class extends Generator {
           );
       }
 
-      this.log("Adding Helm to cloud provider");
-      this._fileHelper(fileListHelmIstio, options, copyOpts);
+      this._fileHelper(fileListIstio, options, copyOpts);
 
       // Can be used in future versions <create Namespace>
       // this._fileHelper(fileListNamespace, options, copyOpts);

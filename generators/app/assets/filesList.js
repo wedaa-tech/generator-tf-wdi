@@ -45,10 +45,10 @@ const fileListEcrBuildAndPush = [
   "ecr-build&publish/README.md"
 ];
 
-const fileListHelmIstio = [
-  "helm/istio.tf",
-  "helm/provider.tf",
-  "helm/variables.tf"
+const fileListIstio = [
+  "istio/istio.tf",
+  "istio/provider.tf",
+  "istio/variables.tf"
 ];
 
 const fileListNamespace = ["namespace/namespace.tf", "namespace/provider.tf"];
@@ -107,6 +107,14 @@ const fileListMinikube = [
   "minikube-auto-deploy.sh"
 ];
 
+const fileListDockerBuildAndPush = [
+  "docker-build&publish/00-variables.tf",
+  "docker-build&publish/01-provider.tf",
+  "docker-build&publish/02-build-image.tf",
+  "docker-build&publish/03-publish-image.tf",
+  "docker-build&publish/README.md"
+];
+
 module.exports = {
   fileListEks,
   fileListEksDrivers,
@@ -116,11 +124,12 @@ module.exports = {
   fileListAcr,
   fileListAcrBuildAndPush,
   fileListAzure,
-  fileListHelmIstio,
+  fileListIstio,
   fileListNamespace,
   fileListECR,
   fileListEcrBuildAndPush,
   fileListIstioMonitoring,
   fileListK8sWebUI,
-  fileListMinikube
+  fileListMinikube,
+  fileListDockerBuildAndPush
 };

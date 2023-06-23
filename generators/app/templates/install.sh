@@ -53,15 +53,15 @@ terraform apply -auto-approve
 
 sleep 180
 
-cd ../helm
+cd ../istio
 
-echo "In helm folder"
+echo "In istio folder"
 
-echo "Running terraform init...(helm)"
+echo "Running terraform init...(istio)"
 
 terraform init
 
-echo "terraform apply...(helm)"
+echo "terraform apply...(istio)"
 terraform apply -auto-approve
 
 

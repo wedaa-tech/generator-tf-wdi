@@ -2,11 +2,11 @@
 set -e
 echo "Running destroy..."
 
-cd helm
+cd istio
 
-echo "In helm folder"
+echo "In istio folder"
 
-echo "terraform destroy...(helm)"
+echo "terraform destroy...(istio)"
 terraform destroy -auto-approve
 
 # sleep 60
