@@ -6,10 +6,9 @@
 function applicationDeployment {
   echo ""
   echo -e "Prerequisites:"
-  echo " 1. Make sure that you have installed kubectl and is configured with the up and running eks cluster."
-  echo " 2. Make sure that you have installed minikube."
+  echo " 1. Make sure that you have installed kubectl and is configured"
+  echo " 2. Make sure that you have installed minikube and make sure it's started."
   echo " 3. Make sure that domain mapping is done properly."
-  echo " NOTE:- You will find the DNS name of application load balancer under ./istio dir in output.txt file"
   echo ""
 
   echo -n "Confirm if you meet all the above requirements,(yes/no):"
@@ -23,6 +22,7 @@ function applicationDeployment {
       sed -i "s/minikube_ip_placeholder/$minikube_ip/g" kubectl-apply.sh
       cd keycloak-k8s
       sed -i "s/minikube_ip_placeholder/$minikube_ip/g" keycloak-configmap.yml
+      sed -i "s/minikube_ip_placeholder/$minikube_ip/g" K8S-README.md
       cd ..
       ./kubectl-apply.sh -f
       cd ..

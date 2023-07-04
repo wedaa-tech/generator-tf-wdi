@@ -56,10 +56,13 @@ resource "kubectl_manifest" "kibana_lb" {
         <%_ } _%>
         namespace: default
       spec:
-        type: LoadBalancer
+        type: <%= onCloud ? 'NodePort' : 'LoadBalancer' %>
         ports:
           - port: 5601
             targetPort: 5601
+        <%_ if (onCloud) { _%>
+            nodePort: 30301
+        <%_ } _%> 
             name: http
         selector:
           common.k8s.elastic.co/type: kibana
@@ -71,6 +74,7 @@ resource "kubectl_manifest" "kibana_lb" {
   ]
 }
 
+<%_ if (!onCloud) { _%>
 resource "null_resource" "print_kibana_loadBalancer_dns" {
   provisioner "local-exec" {
     command = <<-EOT
@@ -85,3 +89,4 @@ resource "null_resource" "print_kibana_loadBalancer_dns" {
     kubectl_manifest.kibana_lb
   ]
 }
+<%_ } _%>

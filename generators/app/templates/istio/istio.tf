@@ -26,7 +26,7 @@ resource "helm_release" "istiod" {
   force_update     = false
   depends_on       = [helm_release.istio-base]
 }
-
+<%_ if (onCloud == "true") { _%>
 resource "helm_release" "istio-ingressgateway" {
   repository      = local.istio_charts_url
   chart           = "gateway"
@@ -50,14 +50,13 @@ resource "helm_release" "istio-ingressgateway" {
     name = "labels.istio"
     value = "ingressgateway"
   }
-  <%_ if (onCloud == "true") { _%>
   # provision's application loadbalancer
   set {
     name  = "service.type"
     value = "<%= cloudProvider == "aws" ? "NodePort" : "LoadBalancer" %>"
   }
-  <%_ } _%>
 }
+<%_ } _%>
 
 <%_ if (cloudProvider == "azure") { _%>
 
@@ -154,6 +153,8 @@ resource "null_resource" "kubectl" {
   depends_on = [
     helm_release.istio-base,
     helm_release.istiod,
+    <%_ if (onCloud == "true") { _%>
     helm_release.istio-ingressgateway
+    <%_ } _%>
   ]
 }
