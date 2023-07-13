@@ -57,7 +57,10 @@ const fileListIstioMonitoring = [
   "istio-monitoring/variables.tf",
   "istio-monitoring/provider.tf",
   "istio-monitoring/main.tf",
-  "istio-monitoring/README.md"
+  "istio-monitoring/README.md",
+  "istio-monitoring/resources/grafana.yaml",
+  "istio-monitoring/resources/kiali.yaml",
+  "istio-monitoring/resources/prometheus.yaml"
 ];
 
 const fileListK8sWebUI = [

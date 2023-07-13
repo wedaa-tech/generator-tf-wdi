@@ -26,7 +26,7 @@ resource "helm_release" "istiod" {
   force_update     = false
   depends_on       = [helm_release.istio-base]
 }
-<%_ if (onCloud == "true") { _%>
+<%_ if (onCloud == "true" && domain != "") { _%>
 resource "helm_release" "istio-ingressgateway" {
   repository      = local.istio_charts_url
   chart           = "gateway"
@@ -58,7 +58,7 @@ resource "helm_release" "istio-ingressgateway" {
 }
 <%_ } _%>
 
-<%_ if (cloudProvider == "azure") { _%>
+<%_ if (cloudProvider == "azure" && domain != "") { _%>
 
 resource "time_sleep" "wait_30_seconds" {
   depends_on = [
@@ -78,7 +78,7 @@ resource "null_resource" "print_loadBalancer_public_ip" {
 
 <%_ } _%>
 
-<%_ if (cloudProvider == "aws") { _%>
+<%_ if (cloudProvider == "aws" && domain != "") { _%>
 resource "kubernetes_ingress_v1" "ingress" {
   metadata {
     name = "ingress"
@@ -153,7 +153,7 @@ resource "null_resource" "kubectl" {
   depends_on = [
     helm_release.istio-base,
     helm_release.istiod,
-    <%_ if (onCloud == "true") { _%>
+    <%_ if (onCloud == "true" && domain != "") { _%>
     helm_release.istio-ingressgateway
     <%_ } _%>
   ]
