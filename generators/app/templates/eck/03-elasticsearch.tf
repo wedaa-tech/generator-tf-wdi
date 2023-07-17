@@ -39,56 +39,59 @@ resource "kubectl_manifest" "elasticsearch" {
   ]
 }
 
-resource "kubectl_manifest" "elasticsearch_lb" {
-  yaml_body = <<YAML
-      apiVersion: v1
-      kind: Service
-      metadata:
-        name: elasticsearch-nlb
+// Uncomment the the below resource to make elasticsearch external available
+# resource "kubectl_manifest" "elasticsearch_lb" {
+#   yaml_body = <<YAML
+#       apiVersion: v1
+#       kind: Service
+#       metadata:
+#         name: elasticsearch-nlb
         <%_ if (onCloud) { _%> 
-        annotations:
+#         annotations:
           <%_ if (cloudProvider == "aws") { _%>
-          service.beta.kubernetes.io/aws-load-balancer-type: external 
-          service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
-          service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+#           service.beta.kubernetes.io/aws-load-balancer-type: external 
+#           service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+#           service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
           <%_ } _%>
           <%_ if (cloudProvider == "azure") { _%>
-          service.beta.kubernetes.io/azure-dns-label-name: elasticsearch
+#           service.beta.kubernetes.io/azure-dns-label-name: elasticsearch
           <%_ } _%>
         <%_ } _%>
-        namespace: default
-      spec:
-        type: <%= onCloud ? 'LoadBalancer' : 'NodePort' %>
-        ports:
-          - port: 9200
-            targetPort: 9200
+#         namespace: default
+#       spec:
+#         type: <%= onCloud ? 'LoadBalancer' : 'NodePort' %>
+#         ports:
+#           - port: 9200
+#             targetPort: 9200
         <%_ if (!onCloud) { _%>
-            nodePort: 30300
+#             nodePort: 30300
         <%_ } _%>
-            name: http
-        selector:
-          common.k8s.elastic.co/type: elasticsearch
-          elasticsearch.k8s.elastic.co/cluster-name: quickstart
-  YAML
+#             name: http
+#         selector:
+#           common.k8s.elastic.co/type: elasticsearch
+#           elasticsearch.k8s.elastic.co/cluster-name: quickstart
+#   YAML
 
-  depends_on = [
-    kubectl_manifest.elasticsearch
-  ]
-}
+#   depends_on = [
+#     kubectl_manifest.elasticsearch
+#   ]
+# }
 
 <%_ if (onCloud) { _%>
-resource "null_resource" "print_elasticsearch_loadBalancer_dns" {
-  provisioner "local-exec" {
-    command = <<-EOT
-      dns=$(kubectl get service elasticsearch-nlb -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
-      echo "https://${dns}:9200" >> elasticsearch-dns.txt
-    EOT
+// Uncomment the the below resource to get external ip/dns information of the elasticsearch
+# resource "null_resource" "print_elasticsearch_loadBalancer_dns" {
+#   provisioner "local-exec" {
+#     command = <<-EOT
+#       sleep 15
+#       dns=$(kubectl get service elasticsearch-nlb -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}')
+#       echo "https://$${dns}:9200" >> elasticsearch-dns.txt
+#     EOT
 
-    interpreter = ["bash", "-c"]
-  }
+#     interpreter = ["bash", "-c"]
+#   }
 
-  depends_on = [
-    kubectl_manifest.elasticsearch_lb
-  ]
-}
+#   depends_on = [
+#     kubectl_manifest.elasticsearch_lb
+#   ]
+# }
 <%_ } _%>

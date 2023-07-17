@@ -5,7 +5,7 @@ resource "kubectl_manifest" "create_namespace" {
     apiVersion: v1
     kind: Namespace
     metadata:
-      name: k8s
+      name: <%= kubernetesNamespace %>
     YAML
 }
 

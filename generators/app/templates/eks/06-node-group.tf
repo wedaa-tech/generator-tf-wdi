@@ -1,3 +1,4 @@
+<%_ if(enableECK) { _%>
 resource "aws_eks_node_group" "eck-node-group" {
   cluster_name    = aws_eks_cluster.aws_eks_cluster_tic.name
   node_group_name = "${var.cluster_name}-eck-node-group"
@@ -25,6 +26,7 @@ resource "aws_eks_node_group" "eck-node-group" {
   ]
 }
 
+<%_ } _%>
 resource "aws_eks_node_group" "apps-node-group" {
   cluster_name    = aws_eks_cluster.aws_eks_cluster_tic.name
   node_group_name = "${var.cluster_name}-apps-node-group"

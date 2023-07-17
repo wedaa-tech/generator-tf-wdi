@@ -8,8 +8,10 @@ function applicationDeployment {
     echo -e "\033[1mPrerequisite:\033[0m"
     echo " 1. Make sure that you have installed kubectl and is configured with the up and running eks cluster."
     echo " 2. Make sure that you have installed aws-cli and configured it."
+    <%_ if (onCloud) { _%>
     echo " 3. Make sure that domain mapping is done properly."
     echo " NOTE:- You will find the DNS name of application load balancer under ./istio dir in output.txt file"
+    <%_ } _%>
     echo ""
 
     echo -n "Confirm if you meet all the above requirements,(yes/no):"

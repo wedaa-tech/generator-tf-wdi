@@ -45,6 +45,7 @@ module.exports = class extends Generator {
       options.cloudProvider !== undefined &&
         options.cloudProvider !== "minikube"
     );
+    options.enableECK = options.enableECK === "true";
 
     this.log(options);
 
@@ -94,7 +95,7 @@ module.exports = class extends Generator {
         this._fileHelper(fileListK8sWebUI, options, copyOpts);
       }
 
-      if (options.enableECK === "true") {
+      if (options.enableECK) {
         this._fileHelper(fileListEck, options, copyOpts);
       }
 

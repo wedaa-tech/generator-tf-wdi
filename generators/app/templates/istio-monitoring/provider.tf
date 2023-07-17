@@ -12,6 +12,12 @@ terraform {
       version = "=3.0.0"
     }
 <%_ } _%>
+<%_ if ( domain == "" ) { _%>
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.7.0"
+    }
+<%_ } _%>
  }
 }
 <%_ } _%>
