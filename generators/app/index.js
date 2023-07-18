@@ -18,6 +18,7 @@ const {
   fileListECR,
   fileListEcrBuildAndPush,
   fileListIstioMonitoring,
+  fileListIstioMonitoringResources,
   fileListK8sWebUI
 } = require("./assets/filesList");
 
@@ -88,6 +89,9 @@ module.exports = class extends Generator {
       // Generate Monitoring Files only if the monitoring is true
       if (options.monitoring === "true") {
         this._fileHelper(fileListIstioMonitoring, options, copyOpts);
+        if (options.domain === undefined || options.domain === "") {
+          this._fileHelper(fileListIstioMonitoringResources, options, copyOpts);
+        }
       }
 
       // Generate K8s Web UI only if the k8sWebUI is true

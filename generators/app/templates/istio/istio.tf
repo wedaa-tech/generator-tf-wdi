@@ -144,17 +144,3 @@ resource "null_resource" "print_alb_dns_name" {
   ]
 }
 <%_ } _%>
-
-# Adds default namespace as side car in istio 
-resource "null_resource" "kubectl" {
-  provisioner "local-exec" {
-    command = "kubectl label namespace default istio-injection=enabled"
-  }
-  depends_on = [
-    helm_release.istio-base,
-    helm_release.istiod,
-    <%_ if (onCloud && domain != "") { _%>
-    helm_release.istio-ingressgateway
-    <%_ } _%>
-  ]
-}

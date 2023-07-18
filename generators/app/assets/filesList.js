@@ -57,7 +57,10 @@ const fileListIstioMonitoring = [
   "istio-monitoring/variables.tf",
   "istio-monitoring/provider.tf",
   "istio-monitoring/main.tf",
-  "istio-monitoring/README.md",
+  "istio-monitoring/README.md"
+];
+
+const fileListIstioMonitoringResources = [
   "istio-monitoring/resources/grafana.yaml",
   "istio-monitoring/resources/kiali.yaml",
   "istio-monitoring/resources/prometheus.yaml"
@@ -132,6 +135,7 @@ module.exports = {
   fileListECR,
   fileListEcrBuildAndPush,
   fileListIstioMonitoring,
+  fileListIstioMonitoringResources,
   fileListK8sWebUI,
   fileListMinikube,
   fileListDockerBuildAndPush

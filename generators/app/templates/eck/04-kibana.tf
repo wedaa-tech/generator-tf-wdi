@@ -42,7 +42,7 @@ resource "kubectl_manifest" "kibana_lb" {
       apiVersion: v1
       kind: Service
       metadata:
-        name: kibana-nlb
+        name: kibana-lb
         <%_ if (onCloud) { _%>
         annotations:
           <%_ if (cloudProvider == "aws") { _%>
@@ -78,8 +78,8 @@ resource "kubectl_manifest" "kibana_lb" {
 resource "null_resource" "print_kibana_loadBalancer_dns" {
   provisioner "local-exec" {
     command = <<-EOT
-      sleep 15
-      dns=$(kubectl get service kibana-nlb -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}')
+      sleep 30
+      dns=$(kubectl get service kibana-lb -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}')
       echo "https://$${dns}:5601" >> kibana-dns.txt
     EOT
 

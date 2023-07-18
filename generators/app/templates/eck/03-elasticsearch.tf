@@ -45,7 +45,7 @@ resource "kubectl_manifest" "elasticsearch" {
 #       apiVersion: v1
 #       kind: Service
 #       metadata:
-#         name: elasticsearch-nlb
+#         name: elasticsearch-lb
         <%_ if (onCloud) { _%> 
 #         annotations:
           <%_ if (cloudProvider == "aws") { _%>
@@ -83,7 +83,7 @@ resource "kubectl_manifest" "elasticsearch" {
 #   provisioner "local-exec" {
 #     command = <<-EOT
 #       sleep 15
-#       dns=$(kubectl get service elasticsearch-nlb -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}')
+#       dns=$(kubectl get service elasticsearch-lb -o jsonpath='{.status.loadBalancer.ingress[0].ip}{.status.loadBalancer.ingress[0].hostname}')
 #       echo "https://$${dns}:9200" >> elasticsearch-dns.txt
 #     EOT
 
