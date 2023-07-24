@@ -94,7 +94,7 @@ variable "rule_configurations" {
       access                     = "Allow"
       protocol                   = "*"
       source_port_range          = "*"
-      destination_port_ranges    = [80, 443, 5601, 9200, 15021]
+      destination_port_ranges    = [80, 443<%= enableECK ? ", 5601, 9200" : "" %><%= ingress === "istio" ? ", 15021" : "" %><%= domain === "" ? (gatewayPort !== null ? ", " + gatewayPort : "") + ", 20001, 3000, 8080" : "" %>]
       source_address_prefix      = "Internet"
       destination_address_prefix = "*"
     }
