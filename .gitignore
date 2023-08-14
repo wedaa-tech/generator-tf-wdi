@@ -104,3 +104,7 @@ dist
 .tern-port
 
 /tmp
+/test-azure-no-domain
+/test-azure-with-domain
+/test-aws-with-domain
+/test-aws-no-domain

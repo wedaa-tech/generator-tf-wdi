@@ -1,0 +1,18 @@
+{
+  "cloudProvider": "azure",
+  "subscriptionId": "12345ad6-fd7c-8c92-a481-e11e65398d12",
+  "tenantId": "12345ad6-fd7c-8c92-a481-e11e65398d12",
+  "location": "canadacentral",
+  "projectId": "test-azure-with-domain",
+  "projectName": "test",
+  "orchestration": "kubernetes",
+  "clusterName": "test",
+  "kubernetesNamespace": "k8s",
+  "ingress": "istio",
+  "monitoring": "true",
+  "enableECK": "true",
+  "k8sWebUI": "true",
+  "generateInfra": "true",
+  "domain": "example.com",
+  "appFolders": ["client", "backend"]
+}

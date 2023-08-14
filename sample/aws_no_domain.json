@@ -1,0 +1,17 @@
+{
+  "cloudProvider": "aws",
+  "awsAccountId": "123456789123",
+  "awsRegion": "ap-south-1",
+  "projectId": "test-aws-no-domain",
+  "projectName": "test",
+  "orchestration": "kubernetes",
+  "clusterName": "test",
+  "kubernetesNamespace": "k8s",
+  "ingress": "istio",
+  "monitoring": "true",
+  "enableECK": "false",
+  "k8sWebUI": "true",
+  "generateInfra": "true",
+  "domain": "",
+  "appFolders": ["clinet", "backend"]
+}

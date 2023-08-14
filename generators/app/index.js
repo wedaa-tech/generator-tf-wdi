@@ -48,6 +48,15 @@ module.exports = class extends Generator {
     );
     options.enableECK = options.enableECK === "true";
 
+    if (options.appConfigs !== undefined) {
+      const gatewayApp = options.appConfigs.find(app => app.type === "gateway");
+      if (gatewayApp) {
+        options.gatewayPort = gatewayApp.port;
+      } else {
+        options.gatewayPort = null;
+      }
+    }
+
     this.log(options);
 
     try {
