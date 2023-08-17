@@ -51,3 +51,4 @@ There are some limitations, such as the following:
 
 1. npm i 
 2. npm link 
+3. yo tf-wdi --file ./sample/aws.json 
