@@ -19,10 +19,18 @@ function applicationDeployment {
       # replace the placeholder with minikube_ip 
       minikube_ip=$(kubectl get node -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
       # replace  pc with this minikube_ip
-      sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" K8S-README.md
-      sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" kubectl-apply.sh
-      cd keycloak-k8s
-      sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" keycloak-configmap.yml
+      if [ `uname -s` == "Darwin" ]
+      then
+        sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" K8S-README.md
+        sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" kubectl-apply.sh
+        cd keycloak-k8s
+        sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" keycloak-configmap.yml
+      else
+        sed -i "s/minikube_ip_placeholder/$minikube_ip/g" K8S-README.md
+        sed -i "s/minikube_ip_placeholder/$minikube_ip/g" kubectl-apply.sh
+        cd keycloak-k8s
+        sed -i "s/minikube_ip_placeholder/$minikube_ip/g" keycloak-configmap.yml
+      fi
       cd ..
       ./kubectl-apply.sh -f
       cd ..

@@ -30,7 +30,7 @@ resource "null_resource" "build_image" {
             elif [ -d "gomicro" ]; then
                 # Change into the "gomicro" directory
                 cd "gomicro"
-                if [ `uname -m` = "arm64" ]
+                if [ `uname -m` == "arm64" ]
                 then
                     docker build --platform=linux/arm64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
                 else
@@ -40,7 +40,7 @@ resource "null_resource" "build_image" {
                 cd ..
             else
                 # If the directory doesn't contain a "go" folder, run the following command
-                if [ `uname -m` = "arm64" ]
+                if [ `uname -m` == "arm64" ]
                 then
                     npm run java:docker:arm64
                 else
