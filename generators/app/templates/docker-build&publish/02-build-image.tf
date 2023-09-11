@@ -33,7 +33,12 @@ resource "null_resource" "build_image" {
                 # Build image for the gomicro application
                 # Change into the "gomicro" directory
                 cd "gomicro"
-                docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                if [ `uname -m` == "arm64" ]
+                then
+                    docker build --platform=linux/arm64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                else
+                    docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                fi
                 # Change back to the previous directory
                 cd ..
             # Check if the directory contains a file called "nginx.conf"
@@ -41,8 +46,13 @@ resource "null_resource" "build_image" {
                 # Build image for the client application
                 docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
             else
-                # Build image for the spring boot application
-                npm run java:docker
+                # If the directory doesn't contain a "go" folder, run the following command
+                if [ `uname -m` == "arm64" ]
+                then
+                    npm run java:docker:arm64
+                else
+                    npm run java:docker
+                fi
             fi            
             # Change back to the original directory
             cd ..
