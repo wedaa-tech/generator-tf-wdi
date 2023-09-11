@@ -20,6 +20,7 @@ resource "null_resource" "build_image" {
 
             # Check if the directory contains a folder called "go"
             if [ -d "go" ]; then
+                # Build image for the go application
                 # Change into the "go" directory
                 cd "go"
                 # Run the build command
@@ -27,7 +28,9 @@ resource "null_resource" "build_image" {
                 docker build -t $(pwd | awk -F'/' '{print $(NF-1)}') .
                 # Change back to the previous directory
                 cd ..
+            # Check if the directory contains a folder called "gomicro"
             elif [ -d "gomicro" ]; then
+                # Build image for the gomicro application
                 # Change into the "gomicro" directory
                 cd "gomicro"
                 if [ `uname -m` == "arm64" ]
@@ -38,6 +41,10 @@ resource "null_resource" "build_image" {
                 fi
                 # Change back to the previous directory
                 cd ..
+            # Check if the directory contains a file called "nginx.conf"
+            elif [ -f "nginx.conf" ]; then
+                # Build image for the client application
+                docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
             else
                 # If the directory doesn't contain a "go" folder, run the following command
                 if [ `uname -m` == "arm64" ]
