@@ -47,6 +47,9 @@ module.exports = class extends Generator {
         options.cloudProvider !== "minikube"
     );
     options.enableECK = options.enableECK === "true";
+    if (options.domain === undefined) {
+      options.domain = "";
+    }
 
     if (options.appConfigs !== undefined) {
       const gatewayApp = options.appConfigs.find(app => app.type === "gateway");
