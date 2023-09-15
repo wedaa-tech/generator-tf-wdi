@@ -30,8 +30,6 @@ resource "null_resource" "build_image" {
                 cd ..
             elif [ -f "go.mod" ]; then
                 docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
-                # Change back to the previous directory
-                cd ..
             # Check if the directory contains a file called "nginx.conf"
             elif [ -f "nginx.conf" ]; then
                 # Build image for the client application
@@ -39,7 +37,7 @@ resource "null_resource" "build_image" {
             else
                 # Build image for the spring boot application
                 npm run java:docker
-            fi            
+            fi
             # Change back to the original directory
             cd ..
         done

@@ -35,12 +35,15 @@ resource "null_resource" "build_image" {
                 else
                     docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
                 fi
-                # Change back to the previous directory
-                cd ..
             # Check if the directory contains a file called "nginx.conf"
             elif [ -f "nginx.conf" ]; then
                 # Build image for the client application
-                docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                if [ `uname -m` == "arm64" ]
+                then
+                    docker build --platform=linux/arm64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                else
+                    docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                fi
             else
                 # If the directory doesn't contain a "go" folder, run the following command
                 if [ `uname -m` == "arm64" ]
@@ -49,7 +52,7 @@ resource "null_resource" "build_image" {
                 else
                     npm run java:docker
                 fi
-            fi            
+            fi
             # Change back to the original directory
             cd ..
         done
