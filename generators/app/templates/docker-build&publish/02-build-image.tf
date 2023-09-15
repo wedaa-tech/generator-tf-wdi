@@ -28,11 +28,7 @@ resource "null_resource" "build_image" {
                 docker build -t $(pwd | awk -F'/' '{print $(NF-1)}') .
                 # Change back to the previous directory
                 cd ..
-            # Check if the directory contains a folder called "gomicro"
-            elif [ -d "gomicro" ]; then
-                # Build image for the gomicro application
-                # Change into the "gomicro" directory
-                cd "gomicro"
+            elif [ -f "go.mod" ]; then
                 if [ `uname -m` == "arm64" ]
                 then
                     docker build --platform=linux/arm64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
