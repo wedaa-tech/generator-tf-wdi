@@ -1,12 +1,12 @@
 {
   "name": "generator-tf-wdi",
-  "version": "0.1.1",
+  "version": "0.0.0",
   "description": "terraform generator",
-  "homepage": "coMakeIT-TIC/generator-tf-wdi/",
+  "homepage": "https://github.com/wedaa-tech/generator-tf-wdi",
   "author": {
-    "name": "comakeIT-tic",
-    "email": "tic.dev@comakeit.com",
-    "url": "https://github.com/coMakeIT-TIC/generator-tf-wdi/"
+    "name": "engineering-wedaa",
+    "email": "engineering@wedaa.tech",
+    "url": "https://github.com/wedaa-tech/generator-tf-wdi"
   },
   "files": [
     "generators"
@@ -81,6 +81,6 @@
     "pretest": "eslint .",
     "test": "jest"
   },
-  "repository": "coMakeIT-TIC/generator-tf-wdi/",
-  "license": "ISC"
+  "repository": "https://github.com/wedaa-tech/generator-tf-wdi/",
+  "license": "Apache-2.0"
 }
