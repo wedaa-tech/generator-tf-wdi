@@ -1,6 +1,6 @@
 {
   "name": "generator-tf-wdi",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "terraform generator",
   "homepage": "https://github.com/wedaa-tech/generator-tf-wdi",
   "author": {
