@@ -4,40 +4,34 @@
 
 #applicationDeployment
 function applicationDeployment {
-  echo ""
-  echo -e "Prerequisites:"
-  echo " 1. Make sure that you have installed kubectl and is configured"
-  echo " 2. Make sure that you have installed minikube and make sure it's started."
-  echo " 3. Make sure that domain mapping is done properly."
-  echo ""
+    echo ""
 
-  echo -n "Confirm if you meet all the above requirements,(yes/no):"
-  read user_continue_action_appDeployment
-  if [ "$user_continue_action_appDeployment" == "yes" ]; then
-      cd .. 
-      cd kubernetes
-      # replace the placeholder with minikube_ip 
-      minikube_ip=$(kubectl get node -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
-      # replace  pc with this minikube_ip
-      if [ `uname -s` == "Darwin" ]
-      then
+    cd .. 
+    cd kubernetes
+
+    # replace the placeholder with minikube_ip 
+    minikube_ip=$(kubectl get node -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+    if [ `uname -s` == "Darwin" ]
+        then
         sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" K8S-README.md
         sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" kubectl-apply.sh
+        <%_ if (auth == "true") { _%> 
         cd keycloak-k8s
         sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" keycloak-configmap.yml
-      else
+        cd ..
+        <%_ } _%>  
+    else
         sed -i "s/minikube_ip_placeholder/$minikube_ip/g" K8S-README.md
         sed -i "s/minikube_ip_placeholder/$minikube_ip/g" kubectl-apply.sh
+        <%_ if (auth == "true") { _%>   
         cd keycloak-k8s
         sed -i "s/minikube_ip_placeholder/$minikube_ip/g" keycloak-configmap.yml
-      fi
-      cd ..
-      ./kubectl-apply.sh -f
-      cd ..
-      cd terraform
-  else 
-      echo "Thank you, user!"
-  fi
+        cd ..
+        <%_ } _%>  
+    fi
+    ./kubectl-apply.sh -f
+    cd ..
+    cd terraform
 }
 
 #MINIKUBE
@@ -45,6 +39,10 @@ function minikube {
     echo -e "You have opted for Minikube cluster"
     # Add code here to execute the action for minikube
     echo "Initiating the minikube action...."
+    echo ""
+      echo -e "Prerequisites:"
+    echo " 1. Make sure that you have installed kubectl and is configured"
+    echo " 2. Make sure that you have installed minikube and make sure it is up and running"
     echo ""
     echo -n "Continue with the Infrastructure deployment,(yes/no):"
     read user_continue_action
@@ -64,6 +62,25 @@ function minikube {
             if [ -d "$dir" ]; then
                 echo "Processing directory: $dir"
                 cd "$dir" || exit
+
+                # Add a condition for "docker-build&publish" directory
+                if [ "$dir" = "./docker-build&publish" ]; then
+                    while true; do
+                        echo ""
+                        echo -e "Prerequisites:"
+                        echo " 1. If any client application [react, angular], update the '.env.production'."
+                        echo " 2. Obtain Minikube Ip address."
+                        echo " 3. Replace all the occurrences of localhost with minikube ip address in the '.env.production' for clinet application."
+                        echo ""
+                        echo -n "Confirm if you meet all the above requirements (yes/no):"
+                        read user_continue_action_for_building_image
+
+                        if [ "$user_continue_action_for_building_image" = "yes" ]; then
+                            break
+                        fi
+                    done
+                fi
+
                 # Execute your command here
                 echo "Initiating terraform in $dir"
                 terraform init

@@ -101,7 +101,10 @@ module.exports = class extends Generator {
       // Generate Monitoring Files only if the monitoring is true
       if (options.monitoring === "true") {
         this._fileHelper(fileListIstioMonitoring, options, copyOpts);
-        if (options.domain === undefined || options.domain === "") {
+        if (
+          options.domain === undefined ||
+          (options.domain === "" && options.cloudProvider !== "minikube")
+        ) {
           this._fileHelper(fileListIstioMonitoringResources, options, copyOpts);
         }
       }

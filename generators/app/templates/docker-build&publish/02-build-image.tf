@@ -31,18 +31,18 @@ resource "null_resource" "build_image" {
             elif [ -f "go.mod" ]; then
                 if [ `uname -m` == "arm64" ]
                 then
-                    docker build --platform=linux/arm64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                    docker build --platform=linux/arm64 -t $(pwd | awk -F'/' '{print $(NF)}') .
                 else
-                    docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                    docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF)}') .
                 fi
             # Check if the directory contains a file called "nginx.conf"
             elif [ -f "nginx.conf" ]; then
                 # Build image for the client application
                 if [ `uname -m` == "arm64" ]
                 then
-                    docker build --platform=linux/arm64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                    docker build --platform=linux/arm64 -t $(pwd | awk -F'/' '{print $(NF)}') .
                 else
-                    docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF-1)}') .
+                    docker build --platform=linux/amd64 -t $(pwd | awk -F'/' '{print $(NF)}') .
                 fi
             else
                 # If the directory doesn't contain a "go" folder, run the following command
