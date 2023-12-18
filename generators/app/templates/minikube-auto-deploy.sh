@@ -5,13 +5,6 @@
 #applicationDeployment
 function applicationDeployment {
   echo ""
-#   echo -e "Prerequisites:"
-#   echo " 1. Make sure that you have installed kubectl and is configured"
-#   echo " 2. Make sure that you have installed minikube and make sure it's started."
-#   echo " 3. Make sure that domain mapping is done properly."
-#   echo ""
-
-#   echo -n "Confirm if you meet all the above requirements,(yes/no):"
   user_continue_action_appDeployment="yes"
   if [ "$user_continue_action_appDeployment" == "yes" ]; then
       cd .. 
@@ -49,6 +42,10 @@ function minikube {
     echo -e "You have opted for Minikube cluster"
     # Add code here to execute the action for minikube
     echo "Initiating the minikube action...."
+    echo ""
+      echo -e "Prerequisites:"
+    echo " 1. Make sure that you have installed kubectl and is configured"
+    echo " 2. Make sure that you have installed minikube and make sure it is up and running"
     echo ""
     echo -n "Continue with the Infrastructure deployment,(yes/no):"
     read user_continue_action
