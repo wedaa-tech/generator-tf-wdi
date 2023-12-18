@@ -4,37 +4,34 @@
 
 #applicationDeployment
 function applicationDeployment {
-  echo ""
-  user_continue_action_appDeployment="yes"
-  if [ "$user_continue_action_appDeployment" == "yes" ]; then
-      cd .. 
-      cd kubernetes
-      # replace the placeholder with minikube_ip 
-      minikube_ip=$(kubectl get node -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
-      if [ `uname -s` == "Darwin" ]
-      then
+    echo ""
+
+    cd .. 
+    cd kubernetes
+
+    # replace the placeholder with minikube_ip 
+    minikube_ip=$(kubectl get node -o jsonpath='{.items[0].status.addresses[?(@.type=="InternalIP")].address}')
+    if [ `uname -s` == "Darwin" ]
+        then
         sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" K8S-README.md
         sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" kubectl-apply.sh
         <%_ if (auth == "true") { _%> 
         cd keycloak-k8s
         sed -i "" "s/minikube_ip_placeholder/$minikube_ip/g" keycloak-configmap.yml
+        cd ..
         <%_ } _%>  
-      else
+    else
         sed -i "s/minikube_ip_placeholder/$minikube_ip/g" K8S-README.md
         sed -i "s/minikube_ip_placeholder/$minikube_ip/g" kubectl-apply.sh
         <%_ if (auth == "true") { _%>   
         cd keycloak-k8s
         sed -i "s/minikube_ip_placeholder/$minikube_ip/g" keycloak-configmap.yml
+        cd ..
         <%_ } _%>  
-      fi
-      cd ..
- 
-      ./kubectl-apply.sh -f
-      cd ..
-      cd terraform
-  else 
-      echo "Thank you, user!"
-  fi
+    fi
+    ./kubectl-apply.sh -f
+    cd ..
+    cd terraform
 }
 
 #MINIKUBE
