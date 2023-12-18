@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "archiver": "^5.3.1",
+    "chmodr": "^1.2.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "nanoid": "^3.3.4",

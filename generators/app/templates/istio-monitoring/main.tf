@@ -1,4 +1,4 @@
-<%_ if( domain == "" ) { _%>
+<%_ if( domain == "" && cloudProvider != "minikube") { _%>
 
 resource "kubectl_manifest" "create_namespace" {
     yaml_body = <<YAML
