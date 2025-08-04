@@ -1,7 +1,7 @@
 {
   "cloudProvider": "aws",
   "awsAccountId": "123456789123",
-  "awsRegion": "ap-south-1",
+  "awsRegion": "us-east-1",
   "projectId": "test-aws-with-domain",
   "projectName": "test",
   "orchestration": "kubernetes",

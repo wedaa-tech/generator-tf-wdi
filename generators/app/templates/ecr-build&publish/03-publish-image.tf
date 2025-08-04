@@ -7,7 +7,7 @@ resource "null_resource" "push_image_to_ecr" {
     command = <<-EOT
         # Use aws cli to login to ecr 
         # aws-cli should be available and configured before ahead
-        aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com
+        aws ecr get-login-password --region ${var.region} | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.${var.region}.amazonaws.com
 
         # shifting to root directory
         cd ../../
