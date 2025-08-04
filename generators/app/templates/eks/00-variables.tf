@@ -5,7 +5,7 @@ variable "cluster_name" {
 
 variable "kubernetes_version" {
   type    = string
-  default = "1.26" 
+  default = "1.32"
 }
 
 variable "region" {
@@ -15,5 +15,5 @@ variable "region" {
 
 variable "project_name" {
   type        = string
-  default = <%- "\""+projectName+"\"" %>
+  default     = <%- "\""+projectName+"\"" %>
 }
