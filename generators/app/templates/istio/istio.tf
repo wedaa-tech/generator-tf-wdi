@@ -8,7 +8,7 @@ resource "helm_release" "istio-base" {
   name             = "istio-base"
   timeout          = 120
   namespace        = "istio-system"
-  version          = "1.26.0"
+  version          = "1.28.0"
   create_namespace = true
   cleanup_on_fail  = true
   force_update     = false
@@ -21,7 +21,7 @@ resource "helm_release" "istiod" {
   timeout          = 120
   namespace        = "istio-system"
   create_namespace = true
-  version          = "1.26.0"
+  version          = "1.28.0"
   cleanup_on_fail  = true
   force_update     = false
   depends_on       = [helm_release.istio-base]
@@ -36,7 +36,7 @@ resource "helm_release" "istio-ingressgateway" {
   force_update    = false
   timeout         = 500
   namespace       = "istio-system"
-  version         = "1.26.0"
+  version         = "1.28.0"
   depends_on      = [helm_release.istiod]
 
   set {
