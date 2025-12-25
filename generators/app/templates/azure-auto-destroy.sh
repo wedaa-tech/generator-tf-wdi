@@ -38,7 +38,7 @@ function azure {
     echo "Destroying the Infrastructure in our Azure cloud....."
         # List of directories to process
         directories=(
-        "./k8s-web-ui"
+        "./kdash"
         "./istio-monitoring"
         "./istio"
         "./eck"

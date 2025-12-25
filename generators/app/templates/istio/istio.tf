@@ -8,7 +8,7 @@ resource "helm_release" "istio-base" {
   name             = "istio-base"
   timeout          = 120
   namespace        = "istio-system"
-  version          = "1.26.0"
+  version          = "1.28.0"
   create_namespace = true
   cleanup_on_fail  = true
   force_update     = false
@@ -21,7 +21,7 @@ resource "helm_release" "istiod" {
   timeout          = 120
   namespace        = "istio-system"
   create_namespace = true
-  version          = "1.26.0"
+  version          = "1.28.0"
   cleanup_on_fail  = true
   force_update     = false
   depends_on       = [helm_release.istio-base]
@@ -36,7 +36,7 @@ resource "helm_release" "istio-ingressgateway" {
   force_update    = false
   timeout         = 500
   namespace       = "istio-system"
-  version         = "1.26.0"
+  version         = "1.28.0"
   depends_on      = [helm_release.istiod]
 
   set {
@@ -54,10 +54,30 @@ resource "helm_release" "istio-ingressgateway" {
   # provision's application loadbalancer
   set {
     name  = "service.type"
-    value = "<%= cloudProvider == "aws" ? "NodePort" : "LoadBalancer" %>"
+    value = "LoadBalancer"
   }
+  # Preserve client IP
+  set {
+    name  = "service.externalTrafficPolicy"
+    value = "Local"
+  }
+  <%_ if (cloudProvider == "aws" && domain != "") { _%>
+  # Tell AWS to create an NLB
+  set {
+    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
+    value = "nlb"
+  }
+  # Make the NLB internet-facing
+  set {
+    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-scheme"
+    value = "internet-facing"
+  }
+  <%_ } _%>
 }
 <%_ } _%>
+
+
+<%_ if (false) { _%> # TODO: Need to be updated later for azure deployment
 
 <%_ if (cloudProvider == "azure" && domain != "") { _%>
 
@@ -144,4 +164,5 @@ resource "null_resource" "print_alb_dns_name" {
     data.aws_lb.istio_alb
   ]
 }
+<%_ } _%>
 <%_ } _%>

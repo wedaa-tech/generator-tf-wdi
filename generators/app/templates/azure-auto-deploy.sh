@@ -65,7 +65,7 @@ function azure {
         "./eck"
         "./istio"
         "./istio-monitoring"
-        "./k8s-web-ui"
+        "./kdash"
         "./acr"
         "./acr-build&publish"
         )

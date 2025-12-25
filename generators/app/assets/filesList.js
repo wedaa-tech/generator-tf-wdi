@@ -66,10 +66,17 @@ const fileListIstioMonitoringResources = [
   "istio-monitoring/resources/prometheus.yaml"
 ];
 
+// Const fileListK8sWebUI = [
+//   "k8s-web-ui/provider.tf",
+//   "k8s-web-ui/main.tf",
+//   "k8s-web-ui/README.md"
+// ];
+
 const fileListK8sWebUI = [
-  "k8s-web-ui/provider.tf",
-  "k8s-web-ui/main.tf",
-  "k8s-web-ui/README.md"
+  "kdash/provider.tf",
+  "kdash/main.tf",
+  "kdash/README.md",
+  "kdash/variables.tf"
 ];
 
 const fileListAks = [
