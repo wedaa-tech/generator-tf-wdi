@@ -5,7 +5,7 @@ data "aws_eks_cluster" "cluster" {
 }
 
 module "eks_cluster_autoscaler" {
-  source  = "github.com/wedaa-tech/terraform-aws-eks-cluster-autoscaler"
+  source  = "wedaa-tech/eks-cluster-autoscaler/aws"
 
   cluster_name = var.cluster_name
   cluster_identity_oidc_issuer = data.aws_eks_cluster.cluster.identity[0].oidc[0].issuer
@@ -13,14 +13,14 @@ module "eks_cluster_autoscaler" {
 }
 
 module "ebs_csi_driver" {
-  source       = "github.com/wedaa-tech/terraform-aws-eks-ebs-csi-driver"
+  source       = "wedaa-tech/eks-ebs-csi-driver/aws"
 
   cluster_name = var.cluster_name
   region       = var.region
 }
 
 module "aws_lb_controller" {
-  source       = "github.com/wedaa-tech/terraform-aws-eks-lb-controller"
+  source       = "wedaa-tech/eks-lb-controller/aws"
   
   cluster_name = var.cluster_name
   region       = var.region

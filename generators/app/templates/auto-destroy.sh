@@ -38,7 +38,7 @@ function aws {
     echo "Destroying the Infrastructure in our AWS cloud....."
         # List of directories to process
         directories=(
-        "./k8s-web-ui"
+        "./kdash"
         "./istio-monitoring"
         "./istio"
         "./eck"

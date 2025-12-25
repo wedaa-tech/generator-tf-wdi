@@ -68,7 +68,7 @@ function aws {
             "./eck"
             "./istio"
             "./istio-monitoring"
-            "./k8s-web-ui"
+            "./kdash"
             "./ecr"
             "./ecr-build&publish"
         )

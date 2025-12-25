@@ -54,10 +54,30 @@ resource "helm_release" "istio-ingressgateway" {
   # provision's application loadbalancer
   set {
     name  = "service.type"
-    value = "<%= cloudProvider == "aws" ? "NodePort" : "LoadBalancer" %>"
+    value = "LoadBalancer"
   }
+  # Preserve client IP
+  set {
+    name  = "service.externalTrafficPolicy"
+    value = "Local"
+  }
+  <%_ if (cloudProvider == "aws" && domain != "") { _%>
+  # Tell AWS to create an NLB
+  set {
+    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
+    value = "nlb"
+  }
+  # Make the NLB internet-facing
+  set {
+    name  = "service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-scheme"
+    value = "internet-facing"
+  }
+  <%_ } _%>
 }
 <%_ } _%>
+
+
+<%_ if (false) { _%> # TODO: Need to be updated later for azure deployment
 
 <%_ if (cloudProvider == "azure" && domain != "") { _%>
 
@@ -144,4 +164,5 @@ resource "null_resource" "print_alb_dns_name" {
     data.aws_lb.istio_alb
   ]
 }
+<%_ } _%>
 <%_ } _%>

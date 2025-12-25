@@ -13,5 +13,5 @@
   "k8sWebUI": "true",
   "generateInfra": "true",
   "domain": "example.com",
-  "appFolders": ["clinet", "backend"]
+  "appFolders": ["client", "backend"]
 }
